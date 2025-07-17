@@ -6,7 +6,7 @@ use Closure;
 use Illuminate\Contracts\View\View;
 use Illuminate\View\Component;
 
-class LoginRegisterButton extends Component
+class CTAButton extends Component
 {
     /**
      * Create a new component instance.
@@ -21,6 +21,6 @@ class LoginRegisterButton extends Component
      */
     public function render(): View|Closure|string
     {
-        return view('components.welcome.login-register-button');
+        return view('components.welcome.c-t-a-button');
     }
 }
