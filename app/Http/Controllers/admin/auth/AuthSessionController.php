@@ -1,17 +1,14 @@
 <?php
 
-namespace App\Http\Controllers\admin;
-
+namespace App\Http\Controllers\admin\auth;
 use Illuminate\View\View;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
 class AuthSessionController extends Controller
 {
-    //
-
-    public function create(): View 
+    public function create(): View
     {
-        return view( 'admin.auth.login');
+        return view('admin.auth.login');
     }
 }
