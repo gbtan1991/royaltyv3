@@ -4,8 +4,9 @@
 
         <div class="lg:hidden flex items-center justify-between">
             {{-- Logo for large screens --}}
+            @once
             @include('components.welcome.logo')
-
+            @endonce
             {{-- Logo for small screens --}}
 
             {{-- Hamburger menu for small screens --}}
@@ -23,18 +24,21 @@
 
         {{-- Mobile Menu --}}
         <div x-show="open" x-transition class="lg:hidden flex flex-col px-6 pb-4 space-y-4 mt-5">
+            @once
             @include('components.welcome.navigation')
             @include('components.welcome.c-t-a-button')
+            @endonce
         </div>
 
 
 
         {{-- Desktop Menu --}}
         <div class="hidden lg:flex justify-between items-center">
+            @once
             @include('components.welcome.logo')
             @include('components.welcome.navigation')
             @include('components.welcome.c-t-a-button')
-
+            @endonce
         </div>
 
 
