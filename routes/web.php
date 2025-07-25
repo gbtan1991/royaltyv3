@@ -8,11 +8,8 @@ Route::get('/', function () {
 })->name('welcome');
 
 
-Route::get('/login', [AuthController::class, 'showLogin'])
-    ->name('login');
 
-Route::get('/register', [AuthController::class, 'showRegister'])
-    ->name('register');
 
-Route::post('/register', [AuthController::class, 'register'])
-    ->name('admin.auth.register');
+require __DIR__.'/admin/auth/auth.php';
+
+
