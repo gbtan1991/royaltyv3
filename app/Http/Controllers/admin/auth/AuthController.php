@@ -21,6 +21,7 @@ class AuthController extends Controller
     public function register(Request $request)
     {
         $request->validate([
+            'username' => 'required|string|max:255|unique:admins',
             'first_name' => 'required|string|max:255',
             'last_name' => 'required|string|max:255',
             'date_of_birth' => 'required|date',
@@ -29,11 +30,14 @@ class AuthController extends Controller
         ]);
 
         $admin = Admin::create([
+            'username' => $request->username,
             'first_name' => $request->first_name,
             'last_name' => $request->last_name,
             'date_of_birth' => $request->date_of_birth,
             'email' => $request->email,
             'password' => bcrypt($request->password),
+            'admin_type' => 'super_admin', // Default admin type
+            'account_status' => 'pending', // Default account status
         ]);
 
 
