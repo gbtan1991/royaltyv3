@@ -19,16 +19,16 @@
                     @endif
 
                     <!-- Call the LoginForm component -->
-                      @include('components.auth.login-form')    
+                      @include('components.admin.auth.login-form')    
                 </div>
             </div>
 
             <div class="relative items-center hidden w-full h-full bg-[#130f30] lg:grid lg:w-1/2">
         <div class="flex items-center justify-center z-1">
-            @include('components.auth.common-grid-shape')
-            <div class="flex flex-col items-center max-w-xs">
-              <a href="index.html" class="block mb-4">
-                <img src="{{ asset('images/crown-white.png')}}" alt="Logo" />
+            @include('components.admin.auth.common-grid-shape')
+            <div class="flex flex-col item-center max-w-xs">
+              <a href="{{ route('welcome')}}" class="flex flex-col items-center mb-2 ">
+                <img src="{{ asset('images/crown-white.png')}}" alt="Logo" class="w-[80%] -mb-5" />
                 <h1 class="text-3xl font-bold text-white">Royalty Rewards App</h1>
             </a>
               <p class="text-center text-gray-400 dark:text-white/60">
