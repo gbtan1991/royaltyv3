@@ -5,7 +5,7 @@
             <p class="text-sm text-gray-500">Sign in to your account to continue</p>
         </div>
 
-       <form method="POST" action="{{ route('login') }}" class="mt-6">
+       <form method="POST" action="{{ route('admin.login') }}" class="mt-6">
             @csrf
 
             <div class="space-y-5">
@@ -27,10 +27,13 @@
                         Login
                     </button>
 
-                    
+                
                 </div>
             </div>
        </form>
+       <div class="mt-4 text-sm text-gray-500">
+                    Need an account? Request an account <a href="{{ route('admin.register') }}" class="text-[#8058f3] hover:underline">here</a>.
+                </div>
     </div>  
 
     
