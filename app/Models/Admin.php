@@ -12,15 +12,18 @@ class Admin extends Model
 
     protected $guard = 'admin';
 
-
-    protected $fillable = [
-        'first_name',
-        'last_name',
-        'date_of_birth',
-        'email',
-        'password',
-        'last_login_at',
-    ];
+protected $fillable = [
+    'username',
+    'first_name',
+    'last_name',
+    'date_of_birth',
+    'email',
+    'password',
+    'admin_type',
+    'account_status',
+    'last_login_at',
+    
+];
 
     protected $hidden = [
         'password',
