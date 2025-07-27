@@ -1,4 +1,4 @@
-<x-layouts.guest-layout>
+{{-- <x-layouts.guest-layout>
     
     <div class="relative p-6 bg-white z-1 sm:p-0">
         <div class="relative flex flex-col justify-center w-full h-screen lg:flex-row">
@@ -105,5 +105,19 @@
 
         <button type="submit" class="bg-green-600 text-white px-4 py-2 rounded">Register</button>
     </form>
+
+</x-layouts.guest-layout> --}}
+
+
+<x-layouts.guest-layout>
+    <div class="relative p-6 bg-white z-1 dark:bg-gray-900 sm:p-0">
+        <div class="relative flex flex-col justify-center w-full h-screen dark:bg-gray-900 lg:flex-row">
+
+               <!-- Call the LoginForm component -->
+                    @include('components.admin.register-form')
+                    @include ('components.admin.auth.common-grid')
+
+        </div>
+
 
 </x-layouts.guest-layout>
