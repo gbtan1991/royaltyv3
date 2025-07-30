@@ -1,6 +1,6 @@
  <div class="flex flex-col flex-1 w-full lg:w-1/2">
      <div class="w-full max-w-md pt-10 mx-auto">
-         <a href="{{ route('welcome')}}"
+         <a href="{{ route('welcome') }}"
              class="inline-flex items-center text-sm text-gray-500 transition-colors hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-300">
              <svg class="stroke-current" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20"
                  fill="none">
@@ -22,7 +22,18 @@
              </div>
              <div>
 
-                 <form action={{ route('admin.login') }} method="POST">
+                 <form method="POST" action={{ route('admin.login') }}>
+                     @csrf
+
+                     @if ($errors->any())
+                         <div class="alert alert-danger text-red-500">
+                             <ul>
+                                 @foreach ($errors->all() as $error)
+                                     <li>{{ $error }}</li>
+                                 @endforeach
+                             </ul>
+                         </div>
+                     @endif
                      <div class="space-y-5">
                          <!-- Email -->
                          <div>
@@ -100,7 +111,8 @@
                  <div class="mt-5">
                      <p class="text-sm font-normal text-center text-gray-700 dark:text-gray-400 sm:text-start">
                          Don't have an account? Request an account
-                         <a href="{{ route('admin.register')}}" class="text-brand-500 hover:text-brand-600 dark:text-brand-400">here</a>
+                         <a href="{{ route('admin.register') }}"
+                             class="text-brand-500 hover:text-brand-600 dark:text-brand-400">here</a>
                      </p>
                  </div>
              </div>
