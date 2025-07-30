@@ -20,5 +20,11 @@ Route::prefix('admin')->name('admin.')->group(function (){
     Route::post('/register', [AuthController::class, 'register'])->name('register');
 
     //Logout
-    Route::get('/logout', [AuthController::class, 'logout'])->name('logout');
+    Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
+        
+    Route::get('/confirmation/{username}', function ($username) {
+    return view('admin.confirmation', compact('username'));
+})->name('confirmation');
+
+
 });
