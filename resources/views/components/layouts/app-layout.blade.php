@@ -16,9 +16,19 @@
     <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
     
 </head>
-<body x-data="" class="bg-gray-100 text-gray-900 font-[outfit] h-screen">
+<body
+    x-data="{ 'darkMode': false, 'loaded': true, 'sidebarToggle': false }"
+    :class="{
+        'overflow-hidden': loaded,
+        'dark bg-gray-900': darkMode === true
+    }"
+    class="bg-gray-100 text-gray-900 font-[outfit] h-screen"
+>
 
-    <div class="">
+    @include('components.partials.preloader')
+
+   
+    <div>
     {{ $slot }}    
     </div>
 
