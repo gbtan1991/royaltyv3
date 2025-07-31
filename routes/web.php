@@ -8,6 +8,7 @@ Route::get('/', function () {
 })->name('welcome');
 
 
+
 // Fallback for global login route (so Laravel's middleware won't break)
 Route::get('/login', function () {
     return redirect()->route('admin.login');
