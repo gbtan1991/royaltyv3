@@ -1,11 +1,29 @@
-<x-layouts.guest-layout>
-    <div class="text-center mt-20">
-        <h1 class="text-3xl font-bold text-gray-800">Welcome to the Admin Dashboard</h1>
-        <p class="mt-4 text-gray-600">You are logged in as: <strong>{{ Auth::guard('admin')->user()->username }}</strong></p>
-        
-        <form method="POST" action="{{ route('admin.logout') }}">
-    @csrf
-    <button type="submit">Logout</button>
-</form>
+<x-layouts.app-layout>
+
+    <!-- Page Wrapper -->
+    <div class="flex h-screen overflow-hidden">
+
+        <!-- Sidebar -->
+        @include('components.partials.sidebar')
+
+        <div class="relative flex flex-col flex-1 overflow-x-hidden overflow-y-auto">
+        <!-- Mobile Device Overlay -->
+        @include('components.partials.overlay')
+
+
+        <!-- Header -->
+        @include('components.partials.header')
+
+      
+
+        <!-- Main Content -->
+        <main>
+            <div class="px-4 py-8">
+                <div class="flex flex-col">
+
+       
+        </div>
+
     </div>
-</x-layouts.guest-layout>
+
+</x-layouts.app-layout>
