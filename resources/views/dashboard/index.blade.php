@@ -18,8 +18,6 @@
 
         <!-- Main Content -->
         <main>
-            <div class="px-4 py-8">
-                <div class="flex flex-col">
 
        
         </div>
