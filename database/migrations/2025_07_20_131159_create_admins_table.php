@@ -18,6 +18,7 @@ return new class extends Migration
             $table->string('first_name');
             $table->string('last_name');
             $table->string('email')->unique()->default(null);
+            $table->string('avatar')->nullable()->default(null); // for avatar image path
             $table->string('admin_type')->default('super_admin'); // Default admin type
             $table->string('account_status')->default('pending');
             $table->timestamp('last_login_at')->nullable();
