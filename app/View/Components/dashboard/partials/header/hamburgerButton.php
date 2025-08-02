@@ -1,12 +1,12 @@
 <?php
 
-namespace App\View\Components\partials\header;
+namespace App\View\Components\dashboard\partials\header;
 
 use Closure;
 use Illuminate\Contracts\View\View;
 use Illuminate\View\Component;
 
-class darkModeToggler extends Component
+class hamburgerButton extends Component
 {
     /**
      * Create a new component instance.
@@ -21,6 +21,6 @@ class darkModeToggler extends Component
      */
     public function render(): View|Closure|string
     {
-        return view('components.partials.header.dark-mode-toggler');
+        return view('components.dashboard.partials.header.hamburger-button');
     }
 }

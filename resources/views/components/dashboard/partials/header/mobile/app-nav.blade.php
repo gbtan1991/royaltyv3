@@ -3,8 +3,8 @@
 
     <div class="2xsm:gap-3 flex items-center gap-2">
 
-        @include('components.partials.header.dark-mode-toggler')
-        @include('components.partials.header.notification-button')
-        @include('components.partials.header.user-profile')
+        @include('components.dashboard.partials.header.dark-mode-toggler')
+        @include('components.dashboard.partials.header.notification-button')
+        @include('components.dashboard.partials.header.user-profile')
     </div>
 </div>

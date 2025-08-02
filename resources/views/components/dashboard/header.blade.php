@@ -7,16 +7,16 @@
         <div
             class="flex w-full items-center justify-between gap-2 border-b border-gray-200 px-3 py-3 sm:gap-4 lg:justify-normal lg:border-b-0 lg:px-0 lg:py-4 dark:border-gray-800">
 
-            @include('components.partials.header.hamburger-button')
-            @include('components.partials.header.mobile.mobile-hamburger-button')
-            @include('components.partials.header.mobile.app-logo')
-            @include('components.partials.header.mobile.app-nav-button')
-            @include('components.partials.header.search-bar')
+            @include('components.dashboard.partials.header.hamburger-button')
+            @include('components.dashboard.partials.header.mobile.mobile-hamburger-button')
+            @include('components.dashboard.partials.header.mobile.app-logo')
+            @include('components.dashboard.partials.header.mobile.app-nav-button')
+            @include('components.dashboard.partials.header.search-bar')
 
       
         </div>
     
-        @include('components.partials.header.mobile.app-nav')
+        @include('components.dashboard.partials.header.mobile.app-nav')
 {{--       
       @include('components.partials.header.mobile.menu-toggle') --}}
 

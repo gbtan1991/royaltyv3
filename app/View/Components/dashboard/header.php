@@ -1,12 +1,12 @@
 <?php
 
-namespace App\View\Components\partials;
+namespace App\View\Components\dashboard;
 
 use Closure;
 use Illuminate\Contracts\View\View;
 use Illuminate\View\Component;
 
-class sidebar extends Component
+class header extends Component
 {
     /**
      * Create a new component instance.
@@ -21,6 +21,6 @@ class sidebar extends Component
      */
     public function render(): View|Closure|string
     {
-        return view('components.partials.sidebar');
+        return view('components.dashboard.header');
     }
 }

@@ -27,7 +27,7 @@
     class="bg-gray-100 text-gray-900 font-[outfit] h-screen"
 >
 
-  @include('components.partials.preloader')
+  @include('components.dashboard.preloader')
 
     <div class="">
     {{ $slot }}    
