@@ -173,7 +173,7 @@
   width: 290px;
 }
 .sidebar:hover .logo {
-  display: block;
+  display: flex;
 }
 .sidebar:hover .logo-icon {
   display: none;

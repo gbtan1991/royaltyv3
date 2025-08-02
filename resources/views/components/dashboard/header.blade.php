@@ -9,7 +9,7 @@
 
             @include('components.dashboard.partials.header.hamburger-button')
             @include('components.dashboard.partials.header.mobile.mobile-hamburger-button')
-            @include('components.dashboard.partials.header.mobile.app-logo')
+            @include('components.dashboard.partials.header.mobile.mobile-app-logo')
             @include('components.dashboard.partials.header.mobile.app-nav-button')
             @include('components.dashboard.partials.header.search-bar')
 
