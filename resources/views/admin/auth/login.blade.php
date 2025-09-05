@@ -1,6 +1,18 @@
 <x-layouts.guest-layout>
-<x-partials.forms.form-label for="email" required>Email</x-partials.forms.form-label>
-<x-partials.forms.form-label for="password">Password</x-partials.forms.form-label>
 
-<p class="text-red-500">test</p>
+
+<form>
+<div>
+<x-partials.form.form-label for="username" required>Username</x-partials.form.form-label>
+<x-partials.form.form-input type="text" name="username" value="" id="username" placeholder="Enter your username" required autofocus autocomplete="username" />
+
+</div>
+
+
+<x-partials.form.form-label for="password">Password</x-partials.form.form-label>
+<x-partials.form.form-input type="password" name="password" value="" id="password" placeholder="Enter your password" required autocomplete="current-password" />
+
+
+
+</form>
 </x-layouts.guest-layout>
