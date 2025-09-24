@@ -3,7 +3,7 @@
     <div class="max-w-lg mx-auto mt-10">
     <h1 class="text-2xl font-bold mb-5">Create Admin</h1>
 
-    <form action="{{ route('admins.store') }}" method="POST" enctype="multipart/form-data" class="space-y-4">
+    <form action="{{ route('admin.store') }}" method="POST" enctype="multipart/form-data" class="space-y-4">
         @csrf
 
         <div>
