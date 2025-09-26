@@ -11,7 +11,7 @@
         @endif
     
 
-    <a href="{{ route('admins.create')}}" class="bg-blue-600 text-white px-4 py-2 rounded">Add New Admin</a>
+    <a href="{{ route('admin.create')}}" class="bg-blue-600 text-white px-4 py-2 rounded">Add New Admin</a>
 
     <table class="w-full mt-5 border-collapse border border-gray-300">
         <thead>
@@ -33,9 +33,9 @@
                     <td class="border px-4 py-2">{{ ucfirst($admin->account_type) }}</td>
                     <td class="border px-4 py-2">{{ ucfirst($admin->account_status) }}</td>
                     <td class="border px-4 py-2 space-x-2">
-                        <a href="{{ route('admins.show', $admin) }}" class="text-blue-600">View</a>
-                        <a href="{{ route('admins.edit', $admin) }}" class="text-yellow-600">Edit</a>
-                        <form action="{{ route('admins.destroy', $admin) }}" method="POST" class="inline">
+                        <a href="{{ route('admin.show', $admin) }}" class="text-blue-600">View</a>
+                        <a href="{{ route('admin.edit', $admin) }}" class="text-yellow-600">Edit</a>
+                        <form action="{{ route('admin.destroy', $admin) }}" method="POST" class="inline">
                             @csrf
                             @method('DELETE')
                             <button type="submit" class="text-red-600" onclick="return confirm('Delete this admin?')">Delete</button>
