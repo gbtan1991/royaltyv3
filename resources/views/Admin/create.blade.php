@@ -7,41 +7,41 @@
         @csrf
 
         <div>
-            <label class="block font-medium">Username</label>
+            <x-form-label for="username" value="Username" class="block font-medium" />
             <input type="text" name="username" class="w-full border rounded p-2" value="{{ old('username') }}">
             @error('username') <p class="text-red-500 text-sm">{{ $message }}</p> @enderror
         </div>
 
         <div>
-            <label class="block font-medium">Password</label>
+            <x-form-label for="password" value="Password" class="block font-medium" />
             <input type="password" name="password" class="w-full border rounded p-2">
             @error('password') <p class="text-red-500 text-sm">{{ $message }}</p> @enderror
         </div>
 
         <div>
-            <label class="block font-medium">Confirm Password</label>
+            <x-form-label for="confirm_password" value="Confirm Password" class="block font-medium" />
             <input type="password" name="password_confirmation" class="w-full border rounded p-2">
         </div>
 
         <div>
-            <label class="block font-medium">First Name</label>
+            <x-form-label for="first_name" value="First Name" class="block font-medium" />
             <input type="text" name="first_name" class="w-full border rounded p-2" value="{{ old('first_name') }}">
             @error('first_name') <p class="text-red-500 text-sm">{{ $message }}</p> @enderror
         </div>
 
         <div>
-            <label class="block font-medium">Last Name</label>
+            <x-form-label for="last_name" value="Last Name" class="block font-medium" />
             <input type="text" name="last_name" class="w-full border rounded p-2" value="{{ old('last_name') }}">
             @error('last_name') <p class="text-red-500 text-sm">{{ $message }}</p> @enderror
         </div>
 
         <div>
-            <label class="block font-medium">Birthdate</label>
+            <x-form-label for="birthdate" value="Birthdate" class="block font-medium" />
             <input type="date" name="birthdate" class="w-full border rounded p-2" value="{{ old('birthdate') }}">
         </div>
 
         <div>
-            <label class="block font-medium">Account Type</label>
+            <x-form-label for="account_type" value="Account Type" class="block font-medium" />
             <select name="account_type" class="w-full border rounded p-2">
                 <option value="admin">Admin</option>
                 <option value="superadmin">Super Admin</option>
@@ -49,7 +49,7 @@
         </div>
 
         <div>
-            <label class="block font-medium">Avatar</label>
+            <x-form-label for="avatar" value="Avatar" class="block font-medium" />
             <input type="file" name="avatar" class="w-full border rounded p-2">
         </div>
 
