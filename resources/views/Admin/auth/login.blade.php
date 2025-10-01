@@ -15,13 +15,13 @@
     <form action="{{ route('admin.login.submit') }}" method="POST" class="space-y-4">
         @csrf
         <div>
-            <label class="block font-medium">Username</label>
-            <input type="text" name="username" class="w-full border rounded p-2" value="{{ old('username') }}">
+            <x-form-label for="username" value="Username" class="block font-medium"/>
+            <x-form-input name="username" class="w-full border rounded p-2" value="{{ old('username') }}"/>
         </div>
 
         <div>
-            <label class="block font-medium">Password</label>
-            <input type="password" name="password" class="w-full border rounded p-2">
+            <x-form-label for="password" value="Password" class="block font-medium"/>
+            <x-form-input name="password" class="w-full border rounded p-2" value="{{ old('username') }}"/>
         </div>
 
         <button type="submit" class="w-full bg-blue-600 text-white py-2 rounded hover:bg-blue-700">
