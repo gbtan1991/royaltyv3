@@ -15,7 +15,7 @@
     <form action="{{ route('admin.login.submit') }}" method="POST" class="space-y-4">
         @csrf
         <div>
-            <x-form-label for="username" value="Username" class="block font-medium"/>
+            <x-form-label for="username" value="Username" class="block font-medium text-red-500"/>
             <x-form-input name="username" class="w-full border rounded p-2" value="{{ old('username') }}"/>
         </div>
 
@@ -24,6 +24,10 @@
             <x-form-input name="password" class="w-full border rounded p-2" value="{{ old('username') }}"/>
         </div>
 
+
+        <x-form-button type="submit" class="bg-blue-600 text-white py-2 rounded hover:bg-blue-700 w-full">
+            Login
+        </x-form-button>
         <button type="submit" class="w-full bg-blue-600 text-white py-2 rounded hover:bg-blue-700">
             Login
         </button>
