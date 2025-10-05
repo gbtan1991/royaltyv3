@@ -25,7 +25,7 @@
         </div>
 
 
-        <x-form-button type="submit" class="bg-blue-600 text-white py-2 rounded hover:bg-blue-700 w-full">
+        <x-form-button type="submit" class="bg-brand-500 text-white py-2 rounded hover:bg-brand-700 w-full">
             Login
         </x-form-button>
       
