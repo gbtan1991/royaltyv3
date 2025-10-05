@@ -1,5 +1,5 @@
 <x-layouts.app-layout>
-    <div class="max-w-3xl mx-auto mt-10">
+    <div class="max-w-3xl mx-auto mt-10 h-96">
     <h1 class="text-2xl font-bold">Welcome, {{ auth('admin')->user()->full_name }} 🎉</h1>
 
     <a href="{{ route('admin.index') }}" class="text-blue-600 hover:underline">Go to Admin Dashboard</a>
