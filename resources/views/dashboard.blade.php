@@ -1,6 +1,4 @@
 <x-layouts.app-layout>
-
-    
     <div class="max-w-3xl mx-auto mt-10">
     <h1 class="text-2xl font-bold">Welcome, {{ auth('admin')->user()->full_name }} 🎉</h1>
 
