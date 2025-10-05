@@ -16,9 +16,13 @@
 
 
 </head>
-<body>
-    
-    {{ $slot }}
+<body 
 
+    x-data="{ page: 'royalty', 'loaded', darkMode: 'false'}">
+    <x-partials.header />
+    <div class="dark:bg-gray-900 dark:text-gray-100 min-h-screen">
+    {{ $slot }}
+    </div>
+    
 </body>
 </html>
