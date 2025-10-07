@@ -16,13 +16,27 @@
 
 
 </head>
-<body 
+<body>
+    
+    <div class="flex h-screen overflow-hidden">
+        <x-partials.sidebar /> 
 
-    x-data="{ page: 'royalty', 'loaded', darkMode: 'false'}">
-    <x-partials.header />
-    <div class="dark:bg-gray-900 dark:text-gray-100 min-h-screen">
-    {{ $slot }}
+        <div class="relative flex flex-col flex-1 overflow-x-hidden overflow-y-auto">
+            <x-partials.header />
+
+            
+        <div class=" min-h-screen">
+        {{ $slot }}
+        </div>
+
+        </div>
+        
+
+
     </div>
+
+
+    
     
 </body>
 </html>
