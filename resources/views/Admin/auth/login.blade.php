@@ -21,7 +21,7 @@
 
         <div>
             <x-form-label for="password" value="Password" class="block font-medium"/>
-            <x-form-input name="password" type="password" class="w-full border rounded p-2" value="{{ old('username') }}"/>
+            <x-form-input name="password" type="password" autocomplete="new-password" class="w-full border rounded p-2" value="{{ old('username') }}"/>
         </div>
 
 
