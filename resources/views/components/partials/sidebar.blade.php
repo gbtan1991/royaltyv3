@@ -1,3 +1,9 @@
-<div>
-    <!-- Let all your things have their places; let each part of your business have its time. - Benjamin Franklin -->
-</div>
+<aside class="fixed top-0 left-0 z-9999 flex h-screen w-[290px] flex-col overflow-y-hidden border-r border-gray-200 bg-white px-5 lg:static lg:translate-x-0">
+
+    <div>
+        <x-partials.sidebar-header />
+    
+    </div>
+
+
+</aside>

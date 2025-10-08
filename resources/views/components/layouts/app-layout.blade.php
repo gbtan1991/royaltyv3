@@ -16,7 +16,7 @@
 
 
 </head>
-<body>
+<body >
     
     <div class="flex h-screen overflow-hidden">
         <x-partials.sidebar /> 
