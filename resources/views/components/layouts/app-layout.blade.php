@@ -16,7 +16,9 @@
 
 
 </head>
-<body >
+<body 
+    x-data="{ 'sidebarToggle': true}"
+>
     
     <div class="flex h-screen overflow-hidden">
         <x-partials.sidebar /> 
