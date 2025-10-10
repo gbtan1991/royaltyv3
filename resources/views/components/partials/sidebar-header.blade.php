@@ -1,5 +1,5 @@
 <div 
-    :class="sidebarToggle ? '' : ''"
+    :class="sidebarToggle ? 'justify-center' : 'justify-between'"
     class="sidebar-header flex items-center gap-2 pt-8 pb-7">
 
     <a href="{{ route('dashboard')}}">
