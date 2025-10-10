@@ -19,7 +19,7 @@
 
 </head>
 <body 
-    x-data="{ sidebarToggle: true }"
+    x-data="{ sidebarToggle: false }"
 
 >
     
