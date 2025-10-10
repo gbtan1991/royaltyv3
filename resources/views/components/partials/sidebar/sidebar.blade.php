@@ -4,7 +4,7 @@
 >
 
     <div>
-        <x-partials.sidebar-header />
+        <x-partials.sidebar.sidebar-header />
     
     </div>
 

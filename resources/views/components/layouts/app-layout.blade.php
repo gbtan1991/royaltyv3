@@ -24,7 +24,7 @@
 >
     
     <div class="flex h-screen overflow-hidden">
-        <x-partials.sidebar /> 
+        <x-partials.sidebar.sidebar /> 
 
         <div class="relative flex flex-col flex-1 overflow-x-hidden overflow-y-auto">
             <x-partials.header.header />
