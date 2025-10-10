@@ -6,14 +6,14 @@
     <!-- Hamburger icon -->
     <i
       class="fa-solid fa-bars-staggered"
-      x-show="!sidebarToggle"
+      x-show="sidebarToggle"
       x-transition
     ></i>
 
     <!-- Close icon -->
     <i
       class="fa-solid fa-xmark"
-      x-show="sidebarToggle"
+      x-show="!sidebarToggle"
       x-transition
     ></i>
 
