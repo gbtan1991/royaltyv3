@@ -1,6 +1,6 @@
 <button
     @click.stop="sidebarToggle = !sidebarToggle"
-    :class="sidebarToggle ? 'bg-gray-100' : ''"
+    :class="sidebarToggle ? '' : ''"
     class="z-50 flex h-10 w-10 items-center justify-center rounded-lg border border-gray-200 text-gray-500 lg:h-11 lg:w-11"
 >
     <!-- Hamburger icon -->
