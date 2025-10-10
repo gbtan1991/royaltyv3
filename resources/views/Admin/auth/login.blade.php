@@ -15,19 +15,19 @@
     <form action="{{ route('admin.login.submit') }}" method="POST" class="space-y-4">
         @csrf
         <div>
-            <x-form-label for="username" value="Username" class="block font-medium "/>
-            <x-form-input name="username" class="w-full border rounded p-2" value="{{ old('username') }}"/>
+            <x-partials.forms.form-label for="username" value="Username" class="block font-medium "/>
+            <x-partials.forms.form-input name="username" class="w-full border rounded p-2" value="{{ old('username') }}"/>
         </div>
 
         <div>
-            <x-form-label for="password" value="Password" class="block font-medium"/>
-            <x-form-input name="password" type="password" autocomplete="new-password" class="w-full border rounded p-2" value="{{ old('username') }}"/>
+            <x-partials.forms.form-label for="password" value="Password" class="block font-medium"/>
+            <x-partials.forms.form-input name="password" type="password" autocomplete="new-password" class="w-full border rounded p-2" value="{{ old('username') }}"/>
         </div>
 
 
-        <x-form-button type="submit" class="bg-brand-500 text-white py-2 rounded hover:bg-brand-700 w-full">
+        <x-partials.forms.form-button type="submit" class="bg-brand-500 text-white py-2 rounded hover:bg-brand-700 w-full">
             Login
-        </x-form-button>
+        </x-partials.forms.form-button>
       
     </form>
 </div>
