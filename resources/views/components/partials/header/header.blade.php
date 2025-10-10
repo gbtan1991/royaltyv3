@@ -5,7 +5,7 @@
     <div class="flex grow flex-col items-center justify-between lg:flex-row lg:px-6">
 
         <div class="flex w-full items-center justify-between gap-2 border-b border-gray-200 px-3 sm:gap-4 lg:justify-normal lg:border-b-0 lg:px-0 lg:py-4">
-            <x-partials.toggle-button />
+            <x-partials.header.toggle-button />
 
         </div>
 

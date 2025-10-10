@@ -1,12 +1,12 @@
 <?php
 
-namespace App\View\Components\partials;
+namespace App\View\Components\partials\header;
 
 use Closure;
 use Illuminate\Contracts\View\View;
 use Illuminate\View\Component;
 
-class toggleButton extends Component
+class header extends Component
 {
     /**
      * Create a new component instance.
@@ -21,6 +21,6 @@ class toggleButton extends Component
      */
     public function render(): View|Closure|string
     {
-        return view('components.partials.toggle-button');
+        return view('components.partials.header.header');
     }
 }
