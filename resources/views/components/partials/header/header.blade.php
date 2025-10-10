@@ -1,13 +1,12 @@
 <header 
     x-data="{menuToggle: false}"
-    class=" sidebar sticky top-0 z-99999 flex w-full border-gray-200 bg-white lg:border-b">
+    class="sticky top-0 z-99999 flex w-full border-gray-200 bg-white lg:border-b">
     
     <div class="flex grow flex-col items-center justify-between lg:flex-row lg:px-6">
 
-        <div class="flex w-full items-center justify-between gap-2 border-b border-gray-200 px-3 sm:gap-4 lg:justify-normal lg:border-b-0 lg:px-0 lg:py-4">
-            <x-partials.header.toggle-button />
+        <x-partials.header.header-app-menu />
 
-        </div>
+
 
     </div>
 
