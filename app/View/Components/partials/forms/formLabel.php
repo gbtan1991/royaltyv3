@@ -1,12 +1,12 @@
 <?php
 
-namespace App\View\Components;
+namespace App\View\Components\partials\forms;
 
 use Closure;
 use Illuminate\Contracts\View\View;
 use Illuminate\View\Component;
 
-class formButton extends Component
+class formLabel extends Component
 {
     /**
      * Create a new component instance.
@@ -21,6 +21,6 @@ class formButton extends Component
      */
     public function render(): View|Closure|string
     {
-        return view('components.form-button');
+        return view('components.partials.forms.form-label');
     }
 }
