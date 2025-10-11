@@ -4,7 +4,7 @@
     
     <div class="flex grow flex-col items-center justify-between lg:flex-row lg:px-6">
 
-        <x-partials.header.header-app-menu />
+        <x-partials.header.app-header-menu />
 
     </div>
 
