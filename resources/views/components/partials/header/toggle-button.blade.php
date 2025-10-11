@@ -1,20 +1,9 @@
-<button
-    @click.stop="sidebarToggle = !sidebarToggle"
-    :class="sidebarToggle ? '' : ''"
-    class="z-50 flex h-10 w-10 items-center justify-center rounded-lg border border-gray-200 text-gray-500 lg:h-11 lg:w-11"
->
-    <!-- Hamburger icon -->
-    <i
-      class="fa-solid fa-bars-staggered"
-      x-show="sidebarToggle"
-      x-transition
-    ></i>
+<button @click.stop="{{ $target }} = !{{ $target }}" :class="{{ $target }} ? '' : ''"
+    class="z-50 flex h-{{ $size }} w-{{ $size }} items-center justify-center  border {{ $borderRadius }} border-gray-200 text-gray-500 lg:h-{{ (int) $size + 1 }} lg:w-{{ (int) $size + 1 }}">
+    <!-- Default Button -->
+    <i class="fa-solid {{ $iconDefault }}" x-show="!{{ $target }}" x-transition></i>
 
-    <!-- Close icon -->
-    <i
-      class="fa-solid fa-xmark"
-      x-show="!sidebarToggle"
-      x-transition
-    ></i>
+    <!-- Active Button icon -->
+    <i class="fa-solid {{ $iconActive }}" x-show="{{ $target }}" x-transition></i>
 
 </button>
