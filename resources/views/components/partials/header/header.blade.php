@@ -6,8 +6,6 @@
 
         <x-partials.header.header-app-menu />
 
-
-
     </div>
 
 

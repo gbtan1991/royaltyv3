@@ -12,7 +12,7 @@
         "/>
 
         <span class="logo" :class="sidebarToggle ? 'hidden': ''">
-        <x-partials.header.logos />
+        <x-partials.header.app-logo />
        </span>
 
      

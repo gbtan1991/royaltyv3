@@ -4,10 +4,11 @@
 
     <a href={{ route('dashboard') }}" class="block lg:hidden">
         <span class="logo">
-            <x-partials.header.logos />
+            <x-partials.header.app-logo />
         </span>
     </a>
 
+    <x-partials.header.menu-button />
 
 
 </div>
