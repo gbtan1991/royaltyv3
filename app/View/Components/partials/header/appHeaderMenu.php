@@ -6,7 +6,7 @@ use Closure;
 use Illuminate\Contracts\View\View;
 use Illuminate\View\Component;
 
-class headerAppMenu extends Component
+class appHeaderMenu extends Component
 {
     /**
      * Create a new component instance.
@@ -21,6 +21,6 @@ class headerAppMenu extends Component
      */
     public function render(): View|Closure|string
     {
-        return view('components.partials.header.header-app-menu');
+        return view('components.partials.header.app-header-menu');
     }
 }
