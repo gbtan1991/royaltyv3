@@ -8,10 +8,10 @@
         <img 
         src={{ asset('assets/images/logo.png')}} 
         alt="logo"
-        :class="sidebarToggle ? '' : 'hidden'"
+        :class="sidebarToggle ? 'hidden' : ''"
         "/>
 
-        <span class="logo" :class="sidebarToggle ? 'hidden': ''">
+        <span class="logo" :class="sidebarToggle ? '': 'hidden'">
         <x-partials.header.app-logo />
        </span>
 
