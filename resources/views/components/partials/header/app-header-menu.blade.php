@@ -18,8 +18,10 @@
 
     </div>
 
+    <div class="lg:hidden">
 
-    <x-partials.header.app-menu />
+        <x-partials.header.app-menu />
+    </div>
     
 
 
