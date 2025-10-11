@@ -6,7 +6,7 @@ use Closure;
 use Illuminate\Contracts\View\View;
 use Illuminate\View\Component;
 
-class logos extends Component
+class appLogo extends Component
 {
     /**
      * Create a new component instance.
@@ -21,6 +21,6 @@ class logos extends Component
      */
     public function render(): View|Closure|string
     {
-        return view('components.partials.header.logos');
+        return view('components.partials.header.app-logo');
     }
 }
