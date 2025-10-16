@@ -7,6 +7,10 @@ Route::get('/', function () {
     return view('admin.auth.login');
 });
 
+Route::get('/dashboard', function() {
+    return view('dashboard');
+})->middleware(['auth', 'verified'])->name('dashboard');
+
 
 
 // Auth Routes for Admin
