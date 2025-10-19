@@ -11,9 +11,8 @@ use App\Http\Controllers\Auth\AdminAuthController;
 |--------------------------------------------------------------------------
 */
 
-
 Route::middleware('guest:admin')->group(function (){
-    Route::get('admin/auth/logion', [AdminAuthController::class, 'showLoginForm'])
+    Route::get('admin/auth/login', [AdminAuthController::class, 'showLoginForm'])
     ->name('admin.login');
 
     Route::post('admin/auth/login', [AdminAuthController::class, 'login'])

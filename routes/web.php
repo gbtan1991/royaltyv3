@@ -19,14 +19,13 @@ require __DIR__ . '/auth.php';
 
 
 // Protected routes for authenticated admin users
-Route::middleware('auth:admin')->group(function(){
+Route::middleware('admin.auth')->group(function(){
     Route::get('/dashboard', function() {
         return view('dashboard');
     })->name('dashboard');
 
     Route::resource('admin', AdminController::class);
 });
-
 
 
 
