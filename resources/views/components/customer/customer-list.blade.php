@@ -8,6 +8,7 @@
                 <th class="p-2 border">Username</th>
                 <th class="p-2 border">Name</th>
                 <th class="p-2 border">Gender</th>
+                <th class="p-2 border">Birthdate</th>
                 <th class="p-2 border">Registered</th>
                 <th class="p-2 border">Points</th>
             </tr>
@@ -19,6 +20,7 @@
                     <td class="p-2 border">{{ $customer->username }}</td>
                     <td class="p-2 border">{{ $customer->first_name }} {{ $customer->last_name }}</td>
                     <td class="p-2 border">{{ $customer->gender }}</td>
+                    <td class="p-2 border">{{ $customer->birthdate }}</td>
                     <td class="p-2 border">{{ $customer->date_of_registration }}</td>
                     <td class="p-2 border">{{ $customer->points }}</td>
                 </tr>
