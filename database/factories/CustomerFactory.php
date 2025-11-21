@@ -20,6 +20,7 @@ class CustomerFactory extends Factory
             'username' => $this->faker->unique()->userName(),
             'first_name' => $this->faker->firstName(),
             'last_name' => $this->faker->lastName(),
+            'birthdate' => $this->faker->date(), 
             'gender' => $this->faker->randomElement(['male', 'female', 'other']),
             'date_of_registration' => $this->faker->date(),
             'points' => $this->faker->numberBetween(0, 1000),
