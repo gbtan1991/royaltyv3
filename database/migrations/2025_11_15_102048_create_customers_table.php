@@ -16,6 +16,7 @@ return new class extends Migration
             $table->string('username')->unique();
             $table->string('first_name');
             $table->string('last_name');
+            $table->date('birthdate')->nullable();
             $table->enum('gender', ['male', 'female', 'other'])->nullable();
             $table->date('date_of_registration');
             $table->integer('points')->default(0);
