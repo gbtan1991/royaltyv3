@@ -2,8 +2,9 @@
 
 namespace Database\Seeders;
 
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+use App\Models\Admin;
 use Illuminate\Database\Seeder;
+use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 
 class AdminSeeder extends Seeder
 {
@@ -12,6 +13,16 @@ class AdminSeeder extends Seeder
      */
     public function run(): void
     {
-        //
+         // Create 5 admin accounts
+        Admin::factory()->count(5)->create();
+
+        // Optional: Create a guaranteed superadmin account
+        Admin::factory()->create([
+            'username' => 'superadmin',
+            'password_hash' => bcrypt('supersecurepassword'),
+            'role' => 'superadmin',
+            'email' => 'superadmin@example.com',
+            'status' => 'active',
+        ]);
     }
 }
