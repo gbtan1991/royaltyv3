@@ -2,6 +2,7 @@
 
     <h1>Admin Dashboard</h1>
 
-    <x-customer.customer-list />
+    <x-partials.nav-bar />
+    
 
 </x-layouts.app-layout>
