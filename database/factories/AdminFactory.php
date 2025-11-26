@@ -21,7 +21,6 @@ class AdminFactory extends Factory
             'username' => fake()->unique()->userName(),
             'password_hash' => Hash::make('password123'), // default password
             'role' => fake()->randomElement(['superadmin', 'admin']),
-            'email' => fake()->unique()->safeEmail(),
             'status' => fake()->randomElement(['active', 'inactive', 'locked']),
             'first_name' => fake()->firstName(),
             'last_name' => fake()->lastName(),

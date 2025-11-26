@@ -19,7 +19,6 @@ return new class extends Migration
             $table->enum('role', ['superadmin', 'admin'])->default('admin');
 
         // New recommended production-level fields
-            $table->string('email')->unique()->nullable();
             $table->enum('status', ['active', 'inactive', 'locked'])->default('active');
 
         // Profile fields
