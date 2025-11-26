@@ -6,26 +6,29 @@ use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration
 {
-    /**
-     * Run the migrations.
-     */
     public function up(): void
     {
         Schema::create('customers', function (Blueprint $table) {
             $table->id();
+
+            // Identity
             $table->string('username')->unique();
+
+            // Personal Information
             $table->string('first_name');
             $table->string('last_name');
             $table->date('birthdate')->nullable();
             $table->enum('gender', ['male', 'female', 'other'])->nullable();
-            $table->date('date_of_registration');
-            $table->integer('points')->default(0);
-            $table->timestamps();
+
+            // Rewards / Points
+            $table->unsignedInteger('total_points')->default(0);
+
+            // Timestamps
+            $table->timestamps();           // created_at, updated_at
+            $table->softDeletes();          // deleted_at (for soft deleting)
         });
     }
-    /**
-     * Reverse the migrations.
-     */
+
     public function down(): void
     {
         Schema::dropIfExists('customers');
