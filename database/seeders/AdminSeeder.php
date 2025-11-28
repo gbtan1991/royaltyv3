@@ -14,7 +14,7 @@ class AdminSeeder extends Seeder
     public function run(): void
     {
          // Create 5 admin accounts
-        Admin::factory()->count(5)->create();
+        // Admin::factory()->count(5)->create();
 
         // Optional: Create a guaranteed superadmin account
         Admin::factory()->create([
