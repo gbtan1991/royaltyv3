@@ -18,7 +18,8 @@ return new class extends Migration
             $table->string('first_name');
             $table->string('last_name');
             $table->date('birthdate')->nullable();
-            $table->enum('gender', ['male', 'female', 'other'])->nullable();
+            $table->enum('gender', ['male', 'female', 'other'])->default('other');
+            $table->enum('status', ['active', 'inactive', 'banned'])->default('inactive');
 
             // Rewards / Points
             $table->unsignedInteger('total_points')->default(0);
