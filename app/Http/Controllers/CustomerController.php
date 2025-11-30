@@ -36,7 +36,7 @@ class CustomerController extends Controller
             'last_name' => 'required|string',
             'gender' => 'required|in:male,female,other',
             'date_of_registration' => 'required|date',
-            'points' => 'required|integer|min:0',
+            
         ]);
 
         Customer::create($validated);
@@ -64,7 +64,7 @@ class CustomerController extends Controller
             'last_name' => 'required|string',
             'gender' => 'required|in:male,female,other',
             'date_of_registration' => 'required|date',
-            'points' => 'required|integer|min:0',
+            
         ]);
 
         $customer->update($validated);
