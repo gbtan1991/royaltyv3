@@ -2,8 +2,8 @@
 
 use App\Http\Controllers\admin\AdminController;
 
-
-Route::prefix('admin')
+Route::middleware('auth:admin')   // << apply alias here
+    ->prefix('admin')
     ->name('admin.')
     ->group(function () {
 
