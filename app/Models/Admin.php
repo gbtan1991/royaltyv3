@@ -21,7 +21,6 @@ class Admin extends Authenticatable
         'status',
         'first_name',
         'last_name',
-        'avatar',
         'last_login_at',
         'last_login_ip',
         'login_attempts',

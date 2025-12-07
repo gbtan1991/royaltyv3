@@ -24,7 +24,6 @@ class AdminFactory extends Factory
             'status' => fake()->randomElement(['active', 'inactive', 'locked']),
             'first_name' => fake()->firstName(),
             'last_name' => fake()->lastName(),
-            'avatar' => null,
             'last_login_at' => fake()->dateTimeBetween('-1 year', 'now'),
             'last_login_ip' => fake()->ipv4(),
             'login_attempts' => fake()->numberBetween(0, 5),

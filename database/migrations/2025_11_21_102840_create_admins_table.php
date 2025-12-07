@@ -24,7 +24,6 @@ return new class extends Migration
         // Profile fields
             $table->string('first_name')->nullable();
             $table->string('last_name')->nullable();
-            $table->string('avatar')->nullable();
 
         // Security logs
             $table->timestamp('last_login_at')->nullable();

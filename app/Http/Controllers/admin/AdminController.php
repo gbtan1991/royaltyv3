@@ -58,7 +58,6 @@ class AdminController extends Controller
 
         'first_name'    => $validated['first_name'] ?? null,
         'last_name'     => $validated['last_name'] ?? null,
-        'avatar'        => $avatarPath,
 
         // Security fields — intentionally left null
         'last_login_at' => null,
