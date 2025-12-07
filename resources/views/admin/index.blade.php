@@ -4,4 +4,7 @@
 
  <a href="{{ route('admin.create')  }}">Add new Admin</a>
 
+<x-admin.admin-list :admins="$admins"/>
+    
+
 </x-layouts.app-layout>
