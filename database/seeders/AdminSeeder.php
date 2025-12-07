@@ -13,8 +13,7 @@ class AdminSeeder extends Seeder
      */
     public function run(): void
     {
-         // Create 5 admin accounts
-        // Admin::factory()->count(5)->create();
+     
 
         // Optional: Create a guaranteed superadmin account
         Admin::factory()->create([
@@ -23,5 +22,8 @@ class AdminSeeder extends Seeder
             'role' => 'superadmin',
             'status' => 'active',
         ]);
+
+        // Create 20 random admin accounts
+        Admin::factory()->count(20)->create();
     }
 }

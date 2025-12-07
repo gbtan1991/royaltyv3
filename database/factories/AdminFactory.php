@@ -17,20 +17,23 @@ class AdminFactory extends Factory
      */
     public function definition(): array
     {
+        $name = fake()->firstName() . ' ' . fake()->lastName();
+
         return [
             'username' => fake()->unique()->userName(),
-            'password_hash' => Hash::make('password123'), // default password
+            'password_hash' => bcrypt('password123'), // default password
             'role' => fake()->randomElement(['superadmin', 'admin']),
             'status' => fake()->randomElement(['active', 'inactive', 'locked']),
+            
             'first_name' => fake()->firstName(),
             'last_name' => fake()->lastName(),
-            'last_login_at' => fake()->dateTimeBetween('-1 year', 'now'),
-            'last_login_ip' => fake()->ipv4(),
-            'login_attempts' => fake()->numberBetween(0, 5),
+
+            'last_login_at' => null,
+            'last_login_ip' => null,
+            'login_attempts' => 0,
             'locked_until' => null,
             'password_reset_token' => null,
             'password_reset_sent_at' => null,
         ];
-
     }
 }
