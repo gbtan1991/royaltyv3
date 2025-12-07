@@ -1,9 +1,13 @@
+
+
+
 <div class="p-4 bg-white shadow rounded">
     <h2 class="text-xl font-bold mb-4">Customer List</h2>
 
     <table class="w-full border-collapse">
         <thead>
             <tr class="bg-gray-100">
+                <th class="p-2 border">Avatar</th>
                 <th class="p-2 border">ID</th>
                 <th class="p-2 border">Username</th>
                 <th class="p-2 border">Full Name</th>
@@ -18,7 +22,8 @@
         </thead>
         <tbody>
            @foreach ($admins as $admin) 
-            <tr>
+                <td><img src="{{ app(\Laravolt\Avatar\Avatar::class)->create($admin->first_name . ' ' . $admin->last_name)->toBase64() }}" 
+     class="w-10 h-10 rounded-full"/></td>
                 <td class="p-2 border">{{ $admin->id }}</td>
                 <td class="p-2 border">{{ $admin->username }}</td>
                 <td class="p-2 border">{{ $admin->first_name }} {{ $admin->last_name }}</td>
