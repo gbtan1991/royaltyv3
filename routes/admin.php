@@ -16,6 +16,9 @@ Route::middleware('auth:admin')   // << apply alias here
         // Store new admin
         Route::post('/', [AdminController::class, 'store'])->name('store');
 
+        // Optional: show single admin (if needed)
+        Route::get('/{admin}', [AdminController::class, 'show'])->name('show');
+
         // Show form to edit existing admin
         Route::get('/{admin}/edit', [AdminController::class, 'edit'])->name('edit');
 
@@ -24,7 +27,4 @@ Route::middleware('auth:admin')   // << apply alias here
 
         // Delete existing admin
         Route::delete('/{admin}', [AdminController::class, 'destroy'])->name('destroy');
-
-        // Optional: show single admin (if needed)
-        Route::get('/{admin}', [AdminController::class, 'show'])->name('show');
     });
