@@ -15,6 +15,7 @@
                 <th class="p-2 border">last Login</th>
                 <th class="p-2 border">Locked Until</th>
                 <th class="p-2 border">Status</th>
+                <th class="p-2 border">Actions</th>
                 
                 
 
@@ -31,6 +32,7 @@
                 <td class="p-2 border">{{ $admin->last_login_at }}</td>
                 <td class="p-2 border">{{ $admin->locked_until }}</td>
                 <td class="p-2 border">{{ $admin->status }}</td>
+                <td class="p-2 border"><a href="{{ route('admin.show', $admin->id) }}" class="text-blue-600 underline">Edit</a></td>
             </tr>
               @endforeach
         </tbody>
