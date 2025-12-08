@@ -77,10 +77,11 @@ class AdminController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
-    {
-        //
-    }
+    public function show(\App\Models\Admin $admin)
+{
+    return view('admin.show', compact('admin'));
+}
+
 
     /**
      * Show the form for editing the specified resource.
