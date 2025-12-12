@@ -6,45 +6,29 @@ use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration
 {
-    /**
-     * Run the migrations.
-     */
     public function up(): void
     {
-        Schema::create('admins', function (Blueprint $table) {
+        Schema::create('admin', function (Blueprint $table) {
             $table->id();
-            
+            $table->unsignedBigInteger('user_id');
+            $table->integer('employee_id')->nullable();
             $table->string('username')->unique();
-            $table->string('password_hash'); 
-            $table->enum('role', ['superadmin', 'admin'])->default('admin');
-
-        // New recommended production-level fields
-            $table->enum('status', ['active', 'inactive', 'locked'])->default('active');
-
-        // Profile fields
-            $table->string('first_name')->nullable();
-            $table->string('last_name')->nullable();
-
-        // Security logs
+            $table->string('password');
+            $table->enum('role', ['superadmin', 'admin', 'staff']);
+            $table->enum('status', ['active', 'inactive']);
             $table->timestamp('last_login_at')->nullable();
             $table->string('last_login_ip')->nullable();
-            $table->integer('login_attempts')->nullable();
-            $table->timestamp('locked_until')->nullable();
-
-        // Password reset system
-            $table->string('password_reset_token')->nullable();
-            $table->timestamp('password_reset_sent_at')->nullable();
-
-        // Laravel Timestamps
             $table->timestamps();
+
+            // Foreign key
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
         });
     }
 
-    /**
-     * Reverse the migrations.
-     */
     public function down(): void
     {
-        Schema::dropIfExists('admins');
+        Schema::dropIfExists('admin');
     }
 };
+
+
