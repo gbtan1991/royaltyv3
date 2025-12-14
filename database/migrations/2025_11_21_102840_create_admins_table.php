@@ -8,14 +8,14 @@ return new class extends Migration
 {
     public function up(): void
     {
-        Schema::create('admin', function (Blueprint $table) {
+        Schema::create('admin_profile', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('user_id');
             $table->integer('employee_id')->nullable();
-            $table->string('username')->unique();
-            $table->string('password');
-            $table->enum('role', ['superadmin', 'admin', 'staff']);
-            $table->enum('status', ['active', 'inactive']);
+            $table->string('username')->unique()->nullable(false);
+            $table->string('password')->nullable(false);
+            $table->enum('role', ['superadmin', 'admin']);
+            $table->enum('status', ['active', 'suspended', 'deactivated'])->default('active');
             $table->timestamp('last_login_at')->nullable();
             $table->string('last_login_ip')->nullable();
             $table->timestamps();
