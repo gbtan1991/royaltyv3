@@ -9,19 +9,23 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('admin_profile', function (Blueprint $table) {
-            $table->id();
-            $table->unsignedBigInteger('user_id');
+            // User ID is the Primary Key AND the Foreign Key for the 1:1 relationship
+            $table->foreignId('user_id')->primary()->constrained('users')->onDelete('cascade');
+
+            // Authentication Specifics
+            $table->string('username', 50)->unique()->nullable(false);
+            $table->string('password_hash')->nullable(false);
             $table->integer('employee_id')->nullable();
-            $table->string('username')->unique()->nullable(false);
-            $table->string('password')->nullable(false);
+
+            // Role Specifics
             $table->enum('role', ['superadmin', 'admin']);
             $table->enum('status', ['active', 'suspended', 'deactivated'])->default('active');
+
+            // Audit Fields
             $table->timestamp('last_login_at')->nullable();
             $table->string('last_login_ip')->nullable();
             $table->timestamps();
 
-            // Foreign key
-            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
         });
     }
 
