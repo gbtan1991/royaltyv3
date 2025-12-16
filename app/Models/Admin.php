@@ -3,40 +3,44 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Notifications\Notifiable;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Foundation\Auth\User as Authenticatable;
 
-class Admin extends Authenticatable
+class AdminProfile extends Model
 {
-    /** @use HasFactory<\Database\Factories\AdminFactory> */
-    use HasFactory, Notifiable;
+    use HasFactory;
 
-    protected $table = 'admins';
+    /**
+     * The table associated with the model.
+     * @var string
+     */
+    protected $table = 'admin_profile';
+
+    /**
+     * We override the primary key to 'user_id' to match the 1:1 migration structure.
+     * @var string
+     */
+    protected $primaryKey = 'user_id';
+    public $incrementing = false; // Key is managed by the User table
+    protected $keyType = 'int';
 
     protected $fillable = [
+        'user_id',
+        'employee_id',
         'username',
         'password_hash',
+        'last_login_at',
         'role',
         'status',
-        'first_name',
-        'last_name',
-        'last_login_at',
-        'last_login_ip',
-        'login_attempts',
-        'locked_until',
-        'password_reset_token',
-        'password_reset_sent_at',
     ];
+    
+    // --- RELATIONSHIPS ---
 
-    protected $hidden = [
-        'password_hash',
-        'password_reset_token'
-    ];
-
-    public function getAuthPassword()
+    /**
+     * Get the core identity user that owns the admin profile.
+     */
+    public function user(): BelongsTo
     {
-        return $this->password_hash;
+        return $this->belongsTo(User::class, 'user_id');
     }
-
 }
