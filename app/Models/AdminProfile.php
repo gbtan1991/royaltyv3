@@ -2,11 +2,11 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Model;
+use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
-class AdminProfile extends Model
+class AdminProfile extends Authenticatable
 {
     use HasFactory;
 
@@ -28,12 +28,29 @@ class AdminProfile extends Model
         'user_id',
         'employee_id',
         'username',
-        'password_hash',
         'last_login_at',
         'role',
         'status',
     ];
-    
+
+    /**
+     * Hide the password hash from JSON responses for security.
+     */
+    protected $hidden = [
+        'password_hash',
+    ];
+
+
+    /**
+     * Tells Laravel to use 'password_hash' instead of 'password' 
+     * when checking credentials during login.
+     */
+    public function getAuthPassword()
+    {
+        return $this->password_hash;
+    }
+
+
     // --- RELATIONSHIPS ---
 
     /**
