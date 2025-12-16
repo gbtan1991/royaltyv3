@@ -22,6 +22,8 @@ return new class extends Migration
             // created_at & updated_at
             $table->timestamps(); 
         });
+
+        
     }
 
     public function down(): void
