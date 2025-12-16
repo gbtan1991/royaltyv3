@@ -3,23 +3,26 @@
 namespace Database\Seeders;
 
 use App\Models\User;
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+use App\Models\AdminProfile;
+use App\Models\CustomerProfile; // Assuming CustomerProfile model exists
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
 {
-    use WithoutModelEvents;
-
     /**
      * Seed the application's database.
      */
     public function run(): void
     {
-        // User::factory(10)->create();
-
-       $this->call([
-        AdminSeeder::class,
-        CustomerSeeder::class,
-    ]);
+        // Call all dedicated seeders to organize your seeding logic
+        // This makes your main seeder clean and easy to read.
+        $this->call([
+            AdminProfileSeeder::class, // Now handles all admin creation
+            CustomerProfileSeeder::class, // Assuming this file is ready
+            
+            // Add other core seeders here later
+            // PointsEarningRuleSeeder::class, 
+            // SalesTransactionSeeder::class,
+        ]);
     }
 }
