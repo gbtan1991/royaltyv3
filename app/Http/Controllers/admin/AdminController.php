@@ -2,9 +2,14 @@
 
 namespace App\Http\Controllers\admin;
 
-use App\Models\Admin;
+use App\Models\User;
+use App\Models\AdminProfile;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Http\RedirectResponse;
+use App\Http\Requests\StoreAdminRequest;
 
 class AdminController extends Controller
 {
@@ -13,9 +18,12 @@ class AdminController extends Controller
      */
     public function index()
     {
-        $admins = Admin::all();
+        
+        // Eager load the related User Data for Performance
+        $admins = AdminProfile::with('user')->get();
 
         return view('admin.index', compact('admins'));
+    
     }
 
     /**
@@ -27,59 +35,63 @@ class AdminController extends Controller
     }
 
     /**
-     * Store a newly created resource in storage.
+     * Store a newly created admin user and profile in storage.
+     * Uses StoreAdminRequest for validation and authorization.
      */
-   public function store(Request $request)
-{
-    // Validate input
-    $validated = $request->validate([
-    'username'      => 'required|string|max:255|unique:admins,username',
-    'password'      => 'required|string|min:8',
-    'role'          => 'required|in:superadmin,admin',
-    'status'        => 'required|in:active,inactive,locked',
+   public function store(StoreAdminRequest $request): RedirectResponse
+    {
+        // Mandatory: Use a database transaction to ensure data integrity across two tables.
+        try {
+            DB::beginTransaction();
 
-    'first_name'    => 'nullable|string|max:255',
-    'last_name'     => 'nullable|string|max:255',
-    'avatar'        => 'nullable|image|mimes:jpg,jpeg,png,webp|max:2048',
-]);
+            // 1. Create the core User identity record
+            $user = User::create([
+                'first_name' => $request->first_name,
+                'last_name' => $request->last_name,
+                'birth_date' => $request->birth_date, // Assuming birth_date is in the request
+                'gender' => $request->gender,
+                'is_active' => true, 
+                // access_key is left null for admin users
+            ]);
 
-    // Handle avatar upload
-    $avatarPath = null;
-    if ($request->hasFile('avatar')) {
-        $avatarPath = $request->file('avatar')->store('avatars/admins', 'public');
+            // 2. Create the associated Admin Profile record (Uses the User's relationship)
+            $user->adminProfile()->create([
+                'employee_id' => $request->employee_id,
+                'username' => $request->username,
+                'password_hash' => Hash::make($request->password), 
+                'role' => $request->role, 
+                'status' => 'Active',
+            ]);
+            
+            DB::commit(); // Both records were created successfully
+
+            return redirect()->route('admin.index')
+                             ->with('success', 'New admin ' . $user->first_name . ' has been successfully created.');
+
+        } catch (\Exception $e) {
+            DB::rollBack(); // If anything failed, undo both User and AdminProfile creation
+            
+            // Log the error for internal debugging
+            \Log::error("Failed to create new admin: " . $e->getMessage());
+            
+            return back()->withInput()
+                         ->with('error', 'Failed to create the admin account due to a system error.');
+        }
     }
 
-    // Create admin
-    $admin = \App\Models\Admin::create([
-        'username'      => $validated['username'],
-        'password_hash' => bcrypt($validated['password']), // Store hashed
-        'role'          => $validated['role'],
-        'status'        => $validated['status'],
 
-        'first_name'    => $validated['first_name'] ?? null,
-        'last_name'     => $validated['last_name'] ?? null,
-
-        // Security fields — intentionally left null
-        'last_login_at' => null,
-        'last_login_ip' => null,
-        'login_attempts' => 0,
-        'locked_until' => null,
-        'password_reset_token' => null,
-        'password_reset_sent_at' => null,
-    ]);
-
-    return redirect()
-        ->route('admin.index')
-        ->with('success', 'Admin user created successfully.');
-}
-
-
-    /**
-     * Display the specified resource.
+   /**
+     * Display the specified admin's profile.
+     * Uses Route Model Binding for AdminProfile.
      */
-    public function show(\App\Models\Admin $admin)
+    public function show(AdminProfile $adminProfile)
 {
-    return view('admin.show', compact('admin'));
+    // Route Model Binding ensures $adminProfile is already loaded.
+    // Eager load the user for display purposes
+    $adminProfile->load('user');
+
+    // Renamed variable to avoid conflict if you use $admin in the view
+        return view('admin.show', compact('adminProfile'));
 }
 
 
