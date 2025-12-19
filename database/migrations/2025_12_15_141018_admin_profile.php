@@ -18,7 +18,7 @@ return new class extends Migration
             $table->integer('employee_id')->nullable();
 
             // Role Specifics
-            $table->enum('role', ['superadmin', 'admin']);
+            $table->enum('role', ['Super Admin', 'Admin']);
             $table->enum('status', ['active', 'suspended', 'deactivated'])->default('active');
 
             // Audit Fields
