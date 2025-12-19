@@ -32,7 +32,7 @@ class AdminProfileSeeder extends Seeder
             'username' => 'superadmin',
             // Use Hash::make() for secure password storage
             'password_hash' => Hash::make('supersecurepassword'), 
-            'role' => 'superadmin', // Must match ENUM exactly
+            'role' => 'Super Admin', // Must match ENUM exactly
             'status' => 'active',    // Must match ENUM exactly
         ]);
 
