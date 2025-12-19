@@ -32,7 +32,7 @@
                 <td class="p-2 border">{{ $admin->last_login_at }}</td>
                 <td class="p-2 border">{{ $admin->locked_until }}</td>
                 <td class="p-2 border">{{ $admin->status }}</td>
-                <td class="p-2 border"><a href="{{ route('admin.show', $admin->id) }}" class="text-blue-600 underline">Edit</a></td>
+                <td class="p-2 border"><a href="{{ route('admin.show', $admin) }}" class="text-blue-600 underline">Edit</a></td>
             </tr>
               @endforeach
         </tbody>
