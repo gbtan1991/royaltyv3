@@ -24,7 +24,7 @@ class StoreAdminRequest extends FormRequest
 
     // 2. Direct check: Since you are in the 'admin' guard, 
     // $user IS the AdminProfile record.
-    return $user->role === 'superadmin';
+    return $user->role === 'Super Admin';
 }
 
     
