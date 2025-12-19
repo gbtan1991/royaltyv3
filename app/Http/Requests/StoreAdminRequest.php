@@ -2,6 +2,8 @@
 
 namespace App\Http\Requests;
 
+use App\Models\AdminProfile;
+use App\Models\User;
 use Illuminate\Validation\Rule;
 use Illuminate\Foundation\Http\FormRequest;
 
@@ -10,11 +12,20 @@ class StoreAdminRequest extends FormRequest
     /**
      * Determine if the user is authorized to make this request.
      */
-    public function authorize(): bool
-    {
-       // Only Super Admins or managers should be able to create new admins
-        return $this->user()->adminProfile->role === 'Super Admin';
-    }
+   public function authorize(): bool
+{
+    $user = $this->user();
+
+    // Debugging: If you still get 403, uncomment the line below to see what's inside $user
+    // dd($user->toArray()); 
+
+    // 1. Ensure the user exists
+    if (!$user) return false;
+
+    // 2. Direct check: Since you are in the 'admin' guard, 
+    // $user IS the AdminProfile record.
+    return $user->role === 'superadmin';
+}
 
     
     public function rules(): array
