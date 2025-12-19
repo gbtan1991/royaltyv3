@@ -29,7 +29,7 @@ class AdminProfileFactory extends Factory
             'username' => $this->faker->unique()->userName(),
             // Secure default password for testing
             'password_hash' => Hash::make('password'), 
-            'role' => $this->faker->randomElement(['superadmin', 'admin']),
+            'role' => $this->faker->randomElement(['Super Admin', 'Admin']),
             'status' => $this->faker->randomElement(['active', 'suspended', 'deactivated']),
             'last_login_at' => null,
         ];
