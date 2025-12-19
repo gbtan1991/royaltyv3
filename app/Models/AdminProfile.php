@@ -28,6 +28,7 @@ class AdminProfile extends Authenticatable
         'user_id',
         'employee_id',
         'username',
+        'password_hash',
         'last_login_at',
         'role',
         'status',
