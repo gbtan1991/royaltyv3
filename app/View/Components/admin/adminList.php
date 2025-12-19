@@ -3,7 +3,8 @@
 namespace App\View\Components\admin;
 
 use Closure;
-use App\Models\Admin;
+use App\Models\AdminProfile;
+
 use Illuminate\View\Component;
 use Illuminate\Contracts\View\View;
 
@@ -18,7 +19,7 @@ class adminList extends Component
 
     public function __construct($admins)
     {
-        $this->admins = Admin::all();
+        $this->admins = AdminProfile::all();
     }
 
     /**
