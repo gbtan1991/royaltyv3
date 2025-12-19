@@ -18,12 +18,12 @@ class AdminController extends Controller
      */
     public function index()
     {
-        
+
         // Eager load the related User Data for Performance
         $admins = AdminProfile::with('user')->get();
 
         return view('admin.index', compact('admins'));
-    
+
     }
 
     /**
@@ -38,61 +38,45 @@ class AdminController extends Controller
      * Store a newly created admin user and profile in storage.
      * Uses StoreAdminRequest for validation and authorization.
      */
-   public function store(StoreAdminRequest $request): RedirectResponse
+    public function store(StoreAdminRequest $request): RedirectResponse
     {
-        // Mandatory: Use a database transaction to ensure data integrity across two tables.
-        try {
-            DB::beginTransaction();
-
-            // 1. Create the core User identity record
+        return DB::transaction(function () use ($request) {
             $user = User::create([
                 'first_name' => $request->first_name,
                 'last_name' => $request->last_name,
-                'birth_date' => $request->birth_date, // Assuming birth_date is in the request
+                'birth_date' => $request->birth_date,
                 'gender' => $request->gender,
-                'is_active' => true, 
-                // access_key is left null for admin users
+                'is_active' => true,
             ]);
 
-            // 2. Create the associated Admin Profile record (Uses the User's relationship)
             $user->adminProfile()->create([
                 'employee_id' => $request->employee_id,
                 'username' => $request->username,
-                'password_hash' => Hash::make($request->password), 
-                'role' => $request->role, 
+                'password_hash' => Hash::make($request->password),
+                'role' => $request->role,
                 'status' => 'Active',
             ]);
-            
-            DB::commit(); // Both records were created successfully
 
             return redirect()->route('admin.index')
-                             ->with('success', 'New admin ' . $user->first_name . ' has been successfully created.');
-
-        } catch (\Exception $e) {
-            DB::rollBack(); // If anything failed, undo both User and AdminProfile creation
-            
-            // Log the error for internal debugging
-            \Log::error("Failed to create new admin: " . $e->getMessage());
-            
-            return back()->withInput()
-                         ->with('error', 'Failed to create the admin account due to a system error.');
-        }
+                ->with('success', "Admin {$user->first_name} created successfully.");
+        });
+        // Laravel automatically handles the Rollback if an Exception is thrown inside the closure.
     }
 
 
-   /**
+    /**
      * Display the specified admin's profile.
      * Uses Route Model Binding for AdminProfile.
      */
     public function show(AdminProfile $adminProfile)
-{
-    // Route Model Binding ensures $adminProfile is already loaded.
-    // Eager load the user for display purposes
-    $adminProfile->load('user');
+    {
+        // Route Model Binding ensures $adminProfile is already loaded.
+        // Eager load the user for display purposes
+        $adminProfile->load('user');
 
-    // Renamed variable to avoid conflict if you use $admin in the view
+        // Renamed variable to avoid conflict if you use $admin in the view
         return view('admin.show', compact('adminProfile'));
-}
+    }
 
 
     /**
