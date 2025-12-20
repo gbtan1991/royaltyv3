@@ -29,7 +29,7 @@
                  class="w-10 h-10 rounded-full"/>
         </td>
         
-        <td class="p-2 border">{{ $admin->user_id }}</td>
+        <td class="p-2 border">{{ $admin->employee_id }}</td>
         
         <td class="p-2 border font-semibold">{{ $admin->username }}</td>
 
