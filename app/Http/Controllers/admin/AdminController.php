@@ -140,8 +140,25 @@ class AdminController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(AdminProfile $admin)
     {
-        //
+        try{
+            DB::beginTransaction();
+
+            $user = $admin->user;
+
+            $admin->delete();
+            $user->delete();
+
+            DB::commit();
+
+            return redirect()->route('admin.index')
+                ->with('success', "Admin deleted successfully.");
+        } catch (\Exception $e) {
+            DB::rollBack();
+            \Log::error("Failed to delete admin: " . $e->getMessage());
+
+            return back()->with('error', 'Deletion failed due to a system error.');
+        }
     }
 }

@@ -60,6 +60,13 @@
             <a href="{{ route('admin.edit', $admin) }}" class="px-4 py-2 bg-blue-600 text-white rounded">
                 Edit
             </a>
+            
+             <form action="{{ route('admin.destroy', $admin) }}" method="POST" onsubmit="return confirm('Are you sure you want to permanently delete this admin')">
+                @csrf
+                @method('DELETE')
+                <button type="submit" class="px-4 py-2 bg-red-600 text-white rounded">Delete</button>
+
+            </form>
 
             <a href="{{ route('admin.index') }}" class="px-4 py-2 bg-gray-500 text-white rounded">
                 Back

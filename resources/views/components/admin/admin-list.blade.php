@@ -55,9 +55,17 @@
             {{ $admin->status }}
         </td>
 
-        <td class="p-2 border">
+        <td class="p-2 border space-x-2">
             <a href="{{ route('admin.show', $admin) }}" class="text-blue-600 hover:underline">View/Edit</a>
+            <form action="{{ route('admin.destroy', $admin) }}" method="POST" onsubmit="return confirm('Are you sure you want to permanently delete this admin')">
+                @csrf
+                @method('DELETE')
+                <button type="submit" class="text-red-600 hover:underline">Delete</button>
+
+            </form>
+        
         </td>
+       
     </tr>
     @endforeach
 </tbody>
