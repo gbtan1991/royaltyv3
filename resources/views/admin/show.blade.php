@@ -14,7 +14,7 @@
         <table class="w-full text-left">
             <tr>
                 <th class="py-2 w-40">ID</th>
-                <td>{{ $admin->id }}</td>
+                <td>{{ $admin->employee_id }}</td>
             </tr>
 
             <tr>
