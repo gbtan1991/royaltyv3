@@ -68,14 +68,14 @@ class AdminController extends Controller
      * Display the specified admin's profile.
      * Uses Route Model Binding for AdminProfile.
      */
-    public function show(AdminProfile $adminProfile)
+    public function show(AdminProfile $admin)
     {
         // Route Model Binding ensures $adminProfile is already loaded.
         // Eager load the user for display purposes
-        $adminProfile->load('user');
+        $admin->load('user');
 
         // Renamed variable to avoid conflict if you use $admin in the view
-        return view('admin.show', compact('adminProfile'));
+        return view('admin.show', ['adminProfile' => $admin]);
     }
 
 

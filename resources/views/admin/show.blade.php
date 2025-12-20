@@ -7,7 +7,7 @@
         {{-- Avatar --}}
         <div class="flex justify-center mb-4">
             <img 
-                src="{{ app(\Laravolt\Avatar\Avatar::class)->create($admin->first_name . ' ' . $admin->last_name)->toBase64() }}"
+                src="{{ app(\Laravolt\Avatar\Avatar::class)->create($adminProfile->first_name . ' ' . $adminProfile->last_name)->toBase64() }}"
                 class="w-24 h-24 rounded-full"
             />
         </div>
@@ -16,43 +16,43 @@
         <table class="w-full text-left">
             <tr>
                 <th class="py-2 w-40">ID</th>
-                <td>{{ $admin->id }}</td>
+                <td>{{ $adminProfile->id }}</td>
             </tr>
 
             <tr>
                 <th class="py-2">Username</th>
-                <td>{{ $admin->username }}</td>
+                <td>{{ $adminProfile->username }}</td>
             </tr>
 
             <tr>
-                <th class="py-2">Name</th>
-                <td>{{ $admin->first_name }} {{ $admin->last_name }}</td>
+                <th class="py-2">Full Name</th>
+                <td>{{ $adminProfile->user->first_name }} {{ $adminProfile->user->last_name }}</td>
             </tr>
 
             <tr>
                 <th class="py-2">Role</th>
-                <td>{{ ucfirst($admin->role) }}</td>
+                <td>{{ ucfirst($adminProfile->role) }}</td>
             </tr>
 
             <tr>
                 <th class="py-2">Status</th>
-                <td>{{ ucfirst($admin->status) }}</td>
+                <td>{{ ucfirst($adminProfile->status) }}</td>
             </tr>
 
             <tr>
                 <th class="py-2">Last Login</th>
-                <td>{{ $admin->last_login_at ?? 'Never' }}</td>
+                <td>{{ $adminProfile->last_login_at ?? 'Never' }}</td>
             </tr>
 
             <tr>
                 <th class="py-2">Locked Until</th>
-                <td>{{ $admin->locked_until ?? 'Not locked' }}</td>
+                <td>{{ $adminProfile->locked_until ?? 'Not locked' }}</td>
             </tr>
         </table>
 
         {{-- Actions --}}
         <div class="mt-6 flex gap-2">
-            <a href="{{ route('admin.edit', $admin->id) }}" 
+            <a href="{{ route('admin.edit', $adminProfile) }}" 
                class="px-4 py-2 bg-blue-600 text-white rounded">
                Edit
             </a>
