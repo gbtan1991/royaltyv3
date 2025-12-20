@@ -4,25 +4,29 @@
     <table class="w-full border-collapse">
         <thead>
             <tr class="bg-gray-100">
-                <th class="p-2 border">ID</th>
-                <th class="p-2 border">Username</th>
-                <th class="p-2 border">Name</th>
+                <th class="p-2 border">Avatar</th>
+                <th class="p-2 border">Member ID</th>
+                <th class="p-2 border">Full Name</th>
                 <th class="p-2 border">Gender</th>
                 <th class="p-2 border">Birthdate</th>
                 <th class="p-2 border">Registered</th>
-                <th class="p-2 border">Points</th>
+                <th class="p-2 border">Total Points</th>
             </tr>
         </thead>
         <tbody>
             @foreach ($customers as $customer)
                 <tr>
-                    <td class="p-2 border">{{ $customer->id }}</td>
-                    <td class="p-2 border">{{ $customer->username }}</td>
-                    <td class="p-2 border">{{ $customer->first_name }} {{ $customer->last_name }}</td>
-                    <td class="p-2 border">{{ $customer->gender }}</td>
-                    <td class="p-2 border">{{ $customer->birthdate }}</td>
-                    <td class="p-2 border">{{ $customer->date_of_registration }}</td>
-                    <td class="p-2 border">{{ $customer->points }}</td>
+                    <td class="p-2 border">
+                        <img src="{{ app( \Laravolt\Avatar\Avatar::class)->create($customer->user->first_name . ' ' . $customer->user->last_name)->toBase64()}}"
+                            class="w-10 h-10 rounded-full" />
+                    </td>
+
+                    <td class="p-2 border">{{ $customer->member_id }}</td>
+                    <td class="p-2 border font-semibold">{{ $customer->user->first_name }} {{ $customer->user->last_name }}</td>
+                    <td class="p-2 border">{{ $customer->user->gender }}</td>
+                    <td class="p-2 border">{{ $customer->user->birth_date }}</td>
+                    <td class="p-2 border">{{ $customer->user->created_at }}</td>
+                    <td class="p-2 border"></td>
                 </tr>
             @endforeach
         </tbody>
