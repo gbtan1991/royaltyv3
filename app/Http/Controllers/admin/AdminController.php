@@ -10,6 +10,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Http\RedirectResponse;
 use App\Http\Requests\StoreAdminRequest;
+use App\Http\Requests\UpdateAdminRequest;
 
 class AdminController extends Controller
 {
@@ -82,17 +83,58 @@ class AdminController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
+    public function edit(AdminProfile $admin)
     {
-        //
+        $admin->load('user');
+        return view('admin.edit', ['admin' => $admin]);
+
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(UpdateAdminRequest $request, AdminProfile $admin)
     {
-        //
+       try {
+        DB::beginTransaction();
+
+        // 1. Update the User (Identity)
+        $admin->user->update([
+            'first_name' => $request->first_name,
+            'last_name'  => $request->last_name,
+            'birth_date' => $request->birth_date,
+            'gender'     => $request->gender,
+        ]);
+
+        // 2. Prepare Profile Data
+        $profileData = [
+            'employee_id' => $request->employee_id,
+            'username'    => $request->username,
+            'role'        => $request->role,
+            'status'      => $request->status,
+        ];
+
+        // 3. Only update password if a new one was provided
+        if ($request->filled('password')) {
+            $profileData['password_hash'] = Hash::make($request->password);
+        }
+
+        // 4. Update the Admin Profile
+        $admin->update($profileData);
+
+        DB::commit();
+
+        return redirect()->route('admin.index')
+            ->with('success', "Admin {$admin->user->first_name} updated successfully.");
+
+    } catch (\Exception $e) {
+        DB::rollBack();
+        \Log::error("Failed to update admin: " . $e->getMessage());
+        // This will stop the app and show you EXACTLY what went wrong
+    dd($e->getMessage());
+        
+        return back()->with('error', 'Update failed due to a system error.');
+    }
     }
 
     /**
