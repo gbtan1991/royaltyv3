@@ -3,7 +3,7 @@
 namespace App\View\Components\customer;
 
 use Closure;
-use App\Models\Customer;
+use App\Models\CustomerProfile;
 use Illuminate\View\Component;
 use Illuminate\Contracts\View\View;
 
@@ -15,9 +15,9 @@ class customerList extends Component
 
     public $customers;
 
-    public function __construct()
+    public function __construct($customers)
     {
-        $this->customers = Customer::all();
+        $this->customers = $customers;
     }
 
     /**

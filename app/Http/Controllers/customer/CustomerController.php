@@ -2,8 +2,9 @@
 
 namespace App\Http\Controllers\customer;
 
-use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use App\Models\CustomerProfile;
+use App\Http\Controllers\Controller;
 
 class CustomerController extends Controller
 {
@@ -12,7 +13,9 @@ class CustomerController extends Controller
      */
     public function index()
     {
-        return view ('customer.index');
+        $customers = CustomerProfile::with('user')->get();
+        
+        return view ('customer.index', compact('customers'));
     }
 
     /**
