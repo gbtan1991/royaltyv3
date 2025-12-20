@@ -75,7 +75,7 @@ class AdminController extends Controller
         $admin->load('user');
 
         // Renamed variable to avoid conflict if you use $admin in the view
-        return view('admin.show', ['adminProfile' => $admin]);
+        return view('admin.show', ['admin' => $admin]);
     }
 
 
