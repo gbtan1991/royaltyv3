@@ -59,9 +59,14 @@
 
                     <div>
                         <label class="block text-sm font-medium">Status</label>
-                        <select name="status" class="w-full border rounded p-2">
-                            @foreach(['Active', 'Inactive', 'Locked'] as $status)
-                                <option value="{{ $status }}" {{ old('status', $admin->status) == $status ? 'selected' : '' }}>{{ $status }}</option>
+                        
+                        
+                        <select name="status" class="w-full border rounded p-2" value="">
+                            @foreach(['Active', 'Suspended', 'Deactivated'] as $option)
+                                <option value="{{ $option }}" 
+                                {{ old('status', $admin->status) === $option ? 'selected' : ''}}
+                                >{{ $option }}</option>    
+                            
                             @endforeach
                         </select>
                     </div>

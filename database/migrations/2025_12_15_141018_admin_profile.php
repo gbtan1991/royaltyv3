@@ -19,7 +19,7 @@ return new class extends Migration
 
             // Role Specifics
             $table->enum('role', ['Super Admin', 'Admin']);
-            $table->enum('status', ['active', 'suspended', 'deactivated'])->default('active');
+            $table->enum('status', ['Active', 'Suspended', 'Deactivated'])->default('Active');
 
             // Audit Fields
             $table->timestamp('last_login_at')->nullable();
