@@ -2,10 +2,12 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Foundation\Auth\User as Authenticatable;
+use App\Models\CustomerProfile;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Database\Eloquent\Relations\HasOne;
+use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Foundation\Auth\User as Authenticatable;
 
 class User extends Authenticatable
 {
@@ -35,36 +37,56 @@ class User extends Authenticatable
     /**
      * Get the admin profile associated with the user.
      */
-    public function adminProfile(): HasOne
+  public function adminProfile(): HasOne
     {
-        // Links users.id to admin_profile.user_id (1:1)
         return $this->hasOne(AdminProfile::class, 'user_id');
     }
 
     /**
      * Get the customer profile associated with the user.
+     * (One-to-One Identity Mapping)
      */
     public function customerProfile(): HasOne
     {
-        // Links users.id to customer_profile.user_id (1:1)
         return $this->hasOne(CustomerProfile::class, 'user_id');
     }
-    
+
+    // --- RELATIONSHIPS (Audit Trail) ---
+
+    /**
+     * If this user is an admin, get the list of customers they registered.
+     * (One-to-Many Audit Mapping)
+     */
+    public function registeredCustomers(): HasMany
+    {
+        return $this->hasMany(CustomerProfile::class, 'registered_by_admin_user_id');
+    }
+
     // --- ACCESSORS / HELPERS ---
 
     /**
-     * Determine if the user has an Admin role.
+     * Determine if the user has an Admin profile.
+     * Optimized to check loaded properties first to save SQL queries.
      */
     public function isAdmin(): bool
     {
-        return $this->adminProfile()->exists();
+        return !is_null($this->adminProfile);
     }
-    
+
     /**
-     * Determine if the user has a Customer role.
+     * Determine if the user has a Customer profile.
      */
     public function isCustomer(): bool
     {
-        return $this->customerProfile()->exists();
+        return !is_null($this->customerProfile);
+    }
+
+    /**
+     * Get the full name of the user.
+     * Usage: $user->full_name
+     */
+    public function getFullNameAttribute(): string
+    {
+        return "{$this->first_name} {$this->last_name}";
     }
 }
