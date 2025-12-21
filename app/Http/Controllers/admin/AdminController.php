@@ -4,12 +4,11 @@ namespace App\Http\Controllers\admin;
 
 use App\Models\User;
 use App\Models\AdminProfile;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Http\RedirectResponse;
-use App\Http\Requests\StoreAdminRequest;
+use App\Http\Requests\admin\StoreAdminRequest;
 use App\Http\Requests\UpdateAdminRequest;
 
 class AdminController extends Controller
