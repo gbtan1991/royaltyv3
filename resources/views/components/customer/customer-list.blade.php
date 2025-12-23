@@ -14,7 +14,7 @@
             </tr>
         </thead>
         <tbody>
-            @foreach ($customers as $customer)
+            @forelse ($customers as $customer)
                 <tr>
                     <td class="p-2 border">
                         <img src="{{ app( \Laravolt\Avatar\Avatar::class)->create($customer->user->first_name . ' ' . $customer->user->last_name)->toBase64()}}"
@@ -28,7 +28,16 @@
                     <td class="p-2 border">{{ $customer->user->created_at }}</td>
                     <td class="p-2 border"></td>
                 </tr>
-            @endforeach
+
+            @empty
+                <tr>
+                    <td colspan="7" class="p-4 border text-center">No customers found.</td>
+                </tr>
+
+
+            @endforelse
+
+
         </tbody>
     </table>
 </div>
