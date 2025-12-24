@@ -11,6 +11,7 @@
                 <th class="p-2 border">Birthdate</th>
                 <th class="p-2 border">Registered</th>
                 <th class="p-2 border">Total Points</th>
+                <th class="p-2 border">Actions</th>
             </tr>
         </thead>
         <tbody>
@@ -27,6 +28,13 @@
                     <td class="p-2 border">{{ $customer->user->birth_date }}</td>
                     <td class="p-2 border">{{ $customer->user->created_at }}</td>
                     <td class="p-2 border"></td>
+                    <td class="p-2 border">
+                        <a href="{{ route('customer.show', $customer) }}" class="text-blue-600 hover:underline">View/Edit</a>
+                        |
+                        <a href="{{ route('customer.destroy', $customer) }}" 
+                           onclick="return confirm('Are you sure you want to delete this customer?');"
+                           class="text-red-600 hover:underline">Delete</a> 
+                    </td>
                 </tr>
 
             @empty
