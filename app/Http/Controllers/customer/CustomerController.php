@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\customer;
 
+use App\Http\Requests\customer\UpdateCustomerRequest;
 use App\Models\User;
 use Illuminate\Http\Request;
 use App\Models\CustomerProfile;
@@ -77,32 +78,82 @@ class CustomerController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function show(CustomerProfile $customer)
     {
-        //
+        $customer->load('user');
+
+        return view('customer.show', ['customer' => $customer]);
+
     }
 
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
+    public function edit(CustomerProfile $customer)
     {
-        //
+        $customer->load('user');
+
+        return view('customer.edit', ['customer' => $customer]);
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
-    {
-        //
-    }
+  public function update(UpdateCustomerRequest $request, CustomerProfile $customer)
+{
+    try {
+        DB::beginTransaction();
 
+        // Ensure the user relationship is loaded
+        $user = $customer->user;
+
+        // 1. Update the User (Identity)
+        $user->update([
+            'first_name' => $request->first_name,
+            'last_name'  => $request->last_name,
+            'gender'     => strtolower($request->gender), // Force lowercase to match migration
+            'birth_date' => $request->birth_date,
+            'is_active'  => $request->is_active,
+        ]);
+
+        // 2. Update the Profile (Loyalty)
+        $customer->update([
+            'loyalty_tier' => $request->loyalty_tier,
+            'member_id'    => $request->member_id, 
+        ]);
+
+        DB::commit();
+
+        return redirect()->route('customer.index')
+                         ->with('success', "Customer {$user->first_name} updated successfully!");
+
+    } catch (\Exception $e) {
+        DB::rollBack();
+        \Log::error("Update error: " . $e->getMessage());
+        return back()->with('error', 'Update failed: ' . $e->getMessage())->withInput();
+    }
+}   
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(CustomerProfile $customer)
     {
-        //
+        try{
+            DB::beginTransaction();
+
+            $user = $customer->user;
+            $customer->delete();
+            $user->delete();
+
+            DB::commit();
+
+            return redirect()->route('customer.index')
+                ->with('success', "Customer {$user->full_name} deleted successfully.");
+        } catch (\Exception $e) {
+            DB::rollBack();
+            Log::error("Failed to delete customer: " . $e->getMessage());
+
+            return back()->with('error', 'Deletion failed due to a system error.');
+        }
     }
 }
