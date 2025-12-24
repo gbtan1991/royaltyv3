@@ -8,11 +8,19 @@ Route::middleware('auth:admin')
     ->group(function() {
 
 
-        Route::get('/customers', [CustomerController::class, 'index'])->name('index');
+        Route::get('/customer', [CustomerController::class, 'index'])->name('index');
 
-        Route::get('/customers/create', [CustomerController::class, 'create'])->name('create');
+        Route::get('/customer/create', [CustomerController::class, 'create'])->name('create');
 
-        Route::post('/customers', [CustomerController::class, 'store'])->name('store');
+        Route::post('/customer', [CustomerController::class, 'store'])->name('store');
+
+        Route::get('/{customer}', [CustomerController::class, 'show'])->name('show');
+
+        Route::get('/{customer}/edit', [CustomerController::class, 'edit'])->name('edit');
+
+        Route::put('/{customer}', [CustomerController::class, 'update'])->name('update'); 
+        
+        Route::delete('/{customer}', [CustomerController::class, 'destroy'])->name('destroy');
 
     });
 
