@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers\transaction;
 
+use App\Models\AdminProfile;
+use App\Models\CustomerProfile;
 use Illuminate\Http\Request;
 use App\Models\SalesTransaction;
 use App\Http\Controllers\Controller;
@@ -23,7 +25,10 @@ class SalesTransactionController extends Controller
      */
     public function create()
     {
-        //
+        $customers = CustomerProfile::with('user')->get();
+
+        return view('transaction.sales.create', compact('customers'));
+
     }
 
     /**
