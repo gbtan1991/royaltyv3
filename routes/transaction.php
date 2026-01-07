@@ -12,6 +12,8 @@ Route::middleware('auth:admin')
     Route::get('/', [SalesTransactionController::class, 'index'])->name('index');
 
     Route::get('/create', [SalesTransactionController::class, 'create'])->name('create');
+    
+    Route::post('/store', [SalesTransactionController::class, 'store'])->name('store');
 
 
     });

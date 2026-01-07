@@ -8,7 +8,7 @@
         </div>
 
         <div class="bg-white p-8 shadow-md rounded-lg border border-gray-100">
-            <form action="" method="POST">
+            <form action="{{ route('transaction.store') }}" method="POST">
                 @csrf
 
                 {{-- Customer Selection --}}
