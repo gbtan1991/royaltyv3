@@ -4,12 +4,14 @@
 use App\Http\Controllers\transaction\SalesTransactionController;
 
 Route::middleware('auth:admin')
-    ->prefix('transactions')
-    ->name('transactions.')
+    ->prefix('transaction')
+    ->name('transaction.')
     ->group(function() {
         
 
-    Route::get('/transactions', [SalesTransactionController::class, 'index'])->name('index');
+    Route::get('/', [SalesTransactionController::class, 'index'])->name('index');
+
+    Route::get('/create', [SalesTransactionController::class, 'create'])->name('create');
 
 
     });
