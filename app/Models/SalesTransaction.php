@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class SalesTransaction extends Model
 {
@@ -16,16 +17,26 @@ class SalesTransaction extends Model
 
     ];
 
-    protected function customer(){
+    public function customer(): BelongsTo{
         return $this->belongsTo(User::class, 'customer_user_id');
     }
 
-    protected function admin(){
+    public function admin(): BelongsTo{
         return $this->belongsTo(User::class, 'admin_user_id');
     
     }
 
-    public function pointsLedger(){
-        return $this->belongsTo(PointsLedger::class);
+    public function pointsLedger(): BelongsTo{
+        return $this->belongsTo(PointsLedger::class, 'points_ledger_id');
     }
+
+
+    protected $casts = [
+    'amount' => 'decimal:2',
+    'transaction_date' => 'datetime', // <--- Add this line
+    'created_at' => 'datetime',
+    'updated_at' => 'datetime',
+];
 }
+
+
