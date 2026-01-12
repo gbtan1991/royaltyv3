@@ -84,10 +84,14 @@ class SalesTransactionController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
-    {
-        //
-    }
+   public function show(SalesTransaction $transaction) 
+{
+    // Now that the route has {transaction}, Laravel will find the 
+    // real data and this 'load' will actually have something to work with.
+    $transaction->load(['customer.customerProfile', 'admin', 'pointsLedger']);
+
+    return view('transaction.sales.show', compact('transaction'));
+}
 
     /**
      * Show the form for editing the specified resource.
