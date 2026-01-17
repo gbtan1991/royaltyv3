@@ -137,8 +137,25 @@ class SalesTransactionController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(SalesTransaction $transaction)
     {
-        //
+        try {
+            DB::transaction(function () use ($transaction) {
+                // 1. Delete associated points first (if they exist)
+                if ($transaction->pointsLedger) {
+                    $transaction->pointsLedger->delete();
+                }
+
+                // 2. Delete the transaction itself
+                $transaction->delete();
+            });
+
+            return redirect()->route('transaction.index')
+                ->with('success', 'Transaction and associated points deleted successfully.');
+
+        } catch (\Exception $e) {
+            return redirect()->back()
+                ->with('error', 'Failed to delete transaction: ' . $e->getMessage());
+        }
     }
 }
