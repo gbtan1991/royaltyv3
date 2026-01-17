@@ -18,7 +18,7 @@ class SalesTransactionController extends Controller
     public function index()
     {
         $transactions = SalesTransaction::with(['customer', 'admin', 'pointsLedger'])->latest()->paginate(15);
-        
+
         return view('transaction.sales.index', compact('transactions'));
     }
 
@@ -36,69 +36,72 @@ class SalesTransactionController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-  public function store(Request $request)
-{
-    // 1. Match the field name to your migration/form
-    $request->validate([
-        'customer_user_id' => 'required|exists:users,id',
-        'amount'           => 'required|numeric|min:1',
-    ]);
+    public function store(Request $request)
+    {
+        // 1. Match the field name to your migration/form
+        $request->validate([
+            'customer_user_id' => 'required|exists:users,id',
+            'amount' => 'required|numeric|min:1',
+        ]);
 
-    try {
-        return DB::transaction(function() use ($request) {
-            
-            $pointsToEarn = floor($request->amount / 5);
+        try {
+            return DB::transaction(function () use ($request) {
 
-            // 2. Create Sales Record
-            $sales = SalesTransaction::create([
-                'customer_user_id' => $request->customer_user_id,
-                'admin_user_id'    => auth('admin')->id(),
-                'amount'           => $request->amount,
-            ]);
+                $pointsToEarn = floor($request->amount / 5);
 
-            // 3. Create ledger entry
-            if ($pointsToEarn > 0) {
-                $ledger = PointsLedger::create([
-                    'user_id'       => $request->customer_user_id,
-                    'points_amount' => $pointsToEarn,
-                    'source_type'   => 'TRANSACTION',
-                    'source_id'     => $sales->id,
-                    'description'   => 'Earned from rental payment of PHP ' . number_format($request->amount, 2),
-                ]); 
+                // 2. Create Sales Record
+                $sales = SalesTransaction::create([
+                    'customer_user_id' => $request->customer_user_id,
+                    'admin_user_id' => auth('admin')->id(),
+                    'amount' => $request->amount,
+                ]);
 
-                $sales->update(['points_ledger_id' => $ledger->id]);
-            }
+                // 3. Create ledger entry
+                if ($pointsToEarn > 0) {
+                    $ledger = PointsLedger::create([
+                        'user_id' => $request->customer_user_id,
+                        'points_amount' => $pointsToEarn,
+                        'source_type' => 'TRANSACTION',
+                        'source_id' => $sales->id,
+                        'description' => 'Earned from rental payment of PHP ' . number_format($request->amount, 2),
+                    ]);
 
-            // 4. FIX: Don't call relationships on the ID. 
-            // Either fetch the user first or just use the ID in the message.
-            return redirect()->route('transaction.index')
-                ->with('success', "Transaction complete! Points earned: {$pointsToEarn}");
-        });
-    } catch (\Exception $e) {
-        // This will now catch the error and show you EXACTLY what is wrong
-        return back()->with('error', 'Transaction failed: ' . $e->getMessage())->withInput();
-    } 
-}   
+                    $sales->update(['points_ledger_id' => $ledger->id]);
+                }
+
+                // 4. FIX: Don't call relationships on the ID. 
+                // Either fetch the user first or just use the ID in the message.
+                return redirect()->route('transaction.index')
+                    ->with('success', "Transaction complete! Points earned: {$pointsToEarn}");
+            });
+        } catch (\Exception $e) {
+            // This will now catch the error and show you EXACTLY what is wrong
+            return back()->with('error', 'Transaction failed: ' . $e->getMessage())->withInput();
+        }
+    }
 
 
     /**
      * Display the specified resource.
      */
-   public function show(SalesTransaction $transaction) 
-{
-    // Now that the route has {transaction}, Laravel will find the 
-    // real data and this 'load' will actually have something to work with.
-    $transaction->load(['customer.customerProfile', 'admin', 'pointsLedger']);
+    public function show(SalesTransaction $transaction)
+    {
+        // Now that the route has {transaction}, Laravel will find the 
+        // real data and this 'load' will actually have something to work with.
+        $transaction->load(['customer.customerProfile', 'admin', 'pointsLedger']);
 
-    return view('transaction.sales.show', compact('transaction'));
-}
+        return view('transaction.sales.show', compact('transaction'));
+    }
 
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
+    public function edit(SalesTransaction $transaction)
     {
-        //
+        // Load relationships to show current  customer infor in the form
+        $transaction->load('customer');
+
+        return view('transaction.sales.edit', compact('transaction'));
     }
 
     /**
