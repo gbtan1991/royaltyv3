@@ -19,6 +19,8 @@ Route::middleware('auth:admin')
 
         Route::get('/{transaction}/edit', [SalesTransactionController::class, 'edit'])->name('edit');
 
+        Route::put('/{transaction}/update', [SalesTransactionController::class, 'update'])->name('update');
+
         Route::delete('/{transaction}', [SalesTransactionController::class, 'destroy'])->name('destroy');
 
 

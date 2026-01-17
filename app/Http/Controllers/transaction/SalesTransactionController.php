@@ -107,9 +107,31 @@ class SalesTransactionController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(Request $request, SalesTransaction $transaction)
     {
-        //
+        $request->validate([
+            'amount' => 'required|numeric|min:0',
+            'transaction_date' => 'required|date',
+        ]);
+
+        // 1. Update the Transaction
+        $transaction->update([
+            'amount' => $request->amount,
+            'transaction_date' => $request->transaction_date,
+        ]);
+
+        // 2. Sync the Loyalty Points (Logic: 1 point per 100 pesos)
+        if ($transaction->pointsLedger) {
+            $newPoints = floor($request->amount / 100);
+
+            $transaction->pointsLedger->update([
+                'points_amount' => $newPoints,
+                'description' => "Updated points for Transaction #{$transaction->id}"
+            ]);
+        }
+
+        return redirect()->route('transaction.show', $transaction)
+            ->with('success', 'Transaction and points updated successfully.');
     }
 
     /**
