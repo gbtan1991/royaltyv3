@@ -107,33 +107,41 @@ class SalesTransactionController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, SalesTransaction $transaction)
-    {
-        $request->validate([
-            'amount' => 'required|numeric|min:0',
-            'transaction_date' => 'required|date',
-        ]);
+   public function update(Request $request, SalesTransaction $transaction)
+{
+    $request->validate([
+        'amount' => 'required|numeric|min:0',
+        'transaction_date' => 'required|date',
+    ]);
 
-        // 1. Update the Transaction
+    DB::transaction(function () use ($request, $transaction) {
+        // 1. Update the Sales Transaction
         $transaction->update([
             'amount' => $request->amount,
             'transaction_date' => $request->transaction_date,
         ]);
 
-        // 2. Sync the Loyalty Points (Logic: 1 point per 100 pesos)
-        if ($transaction->pointsLedger) {
-            $newPoints = floor($request->amount / 100);
+        // 2. Recalculate Points (Adjust the logic to your needs)
+        // If 1 point per 10 PHP:
+        $newPoints = floor($request->amount / 5); 
+        
+        // 3. Update the existing Ledger entry linked to this transaction
+        // We find the ledger entry where source_id = $transaction->id
+        $ledger = PointsLedger::where('source_id', $transaction->id)
+                    ->where('source_type', 'TRANSACTION')
+                    ->first();
 
-            $transaction->pointsLedger->update([
+        if ($ledger) {
+            $ledger->update([
                 'points_amount' => $newPoints,
-                'description' => "Updated points for Transaction #{$transaction->id}"
+                'description' => "Updated points for Transaction #{$transaction->id} (Amount: PHP " . number_format($request->amount, 2) . ")"
             ]);
         }
+    });
 
-        return redirect()->route('transaction.show', $transaction)
-            ->with('success', 'Transaction and points updated successfully.');
-    }
-
+    return redirect()->route('transaction.show', $transaction)
+        ->with('success', 'Transaction and points updated successfully.');
+}
     /**
      * Remove the specified resource from storage.
      */
