@@ -30,6 +30,15 @@ class SalesTransaction extends Model
         return $this->belongsTo(PointsLedger::class, 'points_ledger_id');
     }
 
+    public function calculatePointsEarned() {
+
+        $ratio = Settings::getVal('points_ratio', 5); // Default to 5 if not set
+
+        $ratio = floatval($ratio) ? : 5;
+
+        return floor($this->amount / $ratio);   
+    }
+
 
     protected $casts = [
     'amount' => 'decimal:2',
@@ -37,6 +46,9 @@ class SalesTransaction extends Model
     'created_at' => 'datetime',
     'updated_at' => 'datetime',
 ];
+
+
+
 }
 
 
