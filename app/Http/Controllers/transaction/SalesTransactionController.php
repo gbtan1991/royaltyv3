@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\transaction;
 
+use App\Models\Settings;
 use App\Models\AdminProfile;
 use App\Models\PointsLedger;
 use Illuminate\Http\Request;
@@ -38,7 +39,6 @@ class SalesTransactionController extends Controller
      */
     public function store(Request $request)
     {
-        // 1. Match the field name to your migration/form
         $request->validate([
             'customer_user_id' => 'required|exists:users,id',
             'amount' => 'required|numeric|min:1',
@@ -46,14 +46,16 @@ class SalesTransactionController extends Controller
 
         try {
             return DB::transaction(function () use ($request) {
-
-                $pointsToEarn = floor($request->amount / 5);
+                // 1. DYNAMIC CALCULATION: Get ratio from DB, default to 10
+                $ratio = Settings::getVal('points_ratio', 10);
+                $pointsToEarn = floor($request->amount / $ratio);
 
                 // 2. Create Sales Record
                 $sales = SalesTransaction::create([
                     'customer_user_id' => $request->customer_user_id,
                     'admin_user_id' => auth('admin')->id(),
                     'amount' => $request->amount,
+                    // Note: If your migration has transaction_date, add it here
                 ]);
 
                 // 3. Create ledger entry
@@ -63,19 +65,16 @@ class SalesTransactionController extends Controller
                         'points_amount' => $pointsToEarn,
                         'source_type' => 'TRANSACTION',
                         'source_id' => $sales->id,
-                        'description' => 'Earned from rental payment of PHP ' . number_format($request->amount, 2),
+                        'description' => 'Earned from rental payment of PHP ' . number_format($request->amount, 2) . " (Ratio: 1pt/{$ratio}PHP)",
                     ]);
 
                     $sales->update(['points_ledger_id' => $ledger->id]);
                 }
 
-                // 4. FIX: Don't call relationships on the ID. 
-                // Either fetch the user first or just use the ID in the message.
                 return redirect()->route('transaction.index')
-                    ->with('success', "Transaction complete! Points earned: {$pointsToEarn}");
+                    ->with('success', "Transaction complete! Points earned: {$pointsToEarn} (at 1:{$ratio} ratio)");
             });
         } catch (\Exception $e) {
-            // This will now catch the error and show you EXACTLY what is wrong
             return back()->with('error', 'Transaction failed: ' . $e->getMessage())->withInput();
         }
     }
@@ -108,40 +107,39 @@ class SalesTransactionController extends Controller
      * Update the specified resource in storage.
      */
    public function update(Request $request, SalesTransaction $transaction)
-{
-    $request->validate([
-        'amount' => 'required|numeric|min:0',
-        'transaction_date' => 'required|date',
-    ]);
-
-    DB::transaction(function () use ($request, $transaction) {
-        // 1. Update the Sales Transaction
-        $transaction->update([
-            'amount' => $request->amount,
-            'transaction_date' => $request->transaction_date,
+    {
+        $request->validate([
+            'amount' => 'required|numeric|min:0',
+            'transaction_date' => 'required|date',
         ]);
 
-        // 2. Recalculate Points (Adjust the logic to your needs)
-        // If 1 point per 10 PHP:
-        $newPoints = floor($request->amount / 5); 
-        
-        // 3. Update the existing Ledger entry linked to this transaction
-        // We find the ledger entry where source_id = $transaction->id
-        $ledger = PointsLedger::where('source_id', $transaction->id)
-                    ->where('source_type', 'TRANSACTION')
-                    ->first();
-
-        if ($ledger) {
-            $ledger->update([
-                'points_amount' => $newPoints,
-                'description' => "Updated points for Transaction #{$transaction->id} (Amount: PHP " . number_format($request->amount, 2) . ")"
+        DB::transaction(function () use ($request, $transaction) {
+            // 1. Update the Sales Transaction
+            $transaction->update([
+                'amount' => $request->amount,
+                'transaction_date' => $request->transaction_date,
             ]);
-        }
-    });
 
-    return redirect()->route('transaction.show', $transaction)
-        ->with('success', 'Transaction and points updated successfully.');
-}
+            // 2. DYNAMIC RECALCULATION
+            $ratio = Settings::getVal('points_ratio', 10);
+            $newPoints = floor($request->amount / $ratio); 
+            
+            // 3. Update the existing Ledger entry
+            $ledger = PointsLedger::where('source_id', $transaction->id)
+                        ->where('source_type', 'TRANSACTION')
+                        ->first();
+
+            if ($ledger) {
+                $ledger->update([
+                    'points_amount' => $newPoints,
+                    'description' => "Updated points for Transaction #{$transaction->id} (Amount: PHP " . number_format($request->amount, 2) . " @ 1:{$ratio})"
+                ]);
+            }
+        });
+
+        return redirect()->route('transaction.show', $transaction)
+            ->with('success', 'Transaction and points updated successfully.');
+    }
     /**
      * Remove the specified resource from storage.
      */
