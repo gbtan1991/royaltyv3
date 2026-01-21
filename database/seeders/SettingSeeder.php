@@ -2,14 +2,15 @@
 
 namespace Database\Seeders;
 
-use Illuminate\Database\Seeder;
 use App\Models\Setting;
+use App\Models\Settings;
+use Illuminate\Database\Seeder;
 
 class SettingSeeder extends Seeder
 {
     public function run(): void
     {
-        Setting::updateOrCreate(
+        Settings::updateOrCreate(
             ['key' => 'points_ratio'], // Search for this
             [
                 'value' => '10', 

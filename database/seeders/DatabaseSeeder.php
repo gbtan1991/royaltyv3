@@ -19,6 +19,7 @@ class DatabaseSeeder extends Seeder
         $this->call([
             AdminProfileSeeder::class, // Now handles all admin creation
             CustomerProfileSeeder::class, // Assuming this file is ready
+            SettingSeeder::class,
             
             // Add other core seeders here later
             // PointsEarningRuleSeeder::class, 
