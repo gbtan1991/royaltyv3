@@ -18,27 +18,29 @@
             @forelse ($customers as $customer)
                 <tr>
                     <td class="p-2 border">
-                        <img src="{{ app( \Laravolt\Avatar\Avatar::class)->create($customer->user->first_name . ' ' . $customer->user->last_name)->toBase64()}}"
+                        <img src="{{ app(\Laravolt\Avatar\Avatar::class)->create($customer->user->first_name . ' ' . $customer->user->last_name)->toBase64() }}"
                             class="w-10 h-10 rounded-full" />
                     </td>
 
                     <td class="p-2 border">{{ $customer->member_id }}</td>
-                    <td class="p-2 border font-semibold">{{ $customer->user->first_name }} {{ $customer->user->last_name }}</td>
+                    <td class="p-2 border font-semibold">{{ $customer->user->first_name }}
+                        {{ $customer->user->last_name }}</td>
                     <td class="p-2 border">{{ $customer->user->gender }}</td>
                     <td class="p-2 border">{{ $customer->user->birth_date }}</td>
                     <td class="p-2 border">{{ $customer->user->created_at }}</td>
                     <td class="p-2 border font-bold text-center">
-    {{-- Default to 0 if no points exist --}}
-    <span class="{{ ($customer->total_points ?? 0) >= 0 ? 'text-green-600' : 'text-red-600' }}">
-        {{ number_format($customer->total_points ?? 0, 2) }}
-    </span>
-</td>
+                        {{-- Default to 0 if no points exist --}}
+                        <span class="{{ ($customer->total_points ?? 0) >= 0 ? 'text-green-600' : 'text-red-600' }}">
+                            {{ number_format($customer->total_points ?? 0, 2) }}
+                        </span>
+                    </td>
                     <td class="p-2 border">
-                        <a href="{{ route('customer.show', $customer) }}" class="text-blue-600 hover:underline">View/Edit</a>
+                        <a href="{{ route('customer.show', $customer) }}"
+                            class="text-blue-600 hover:underline">View/Edit</a>
                         |
-                        <a href="{{ route('customer.destroy', $customer) }}" 
-                           onclick="return confirm('Are you sure you want to delete this customer?');"
-                           class="text-red-600 hover:underline">Delete</a> 
+                        <a href="{{ route('customer.destroy', $customer) }}"
+                            onclick="return confirm('Are you sure you want to delete this customer?');"
+                            class="text-red-600 hover:underline">Delete</a>
                     </td>
                 </tr>
 
@@ -46,8 +48,6 @@
                 <tr>
                     <td colspan="7" class="p-4 border text-center">No customers found.</td>
                 </tr>
-
-
             @endforelse
 
 
