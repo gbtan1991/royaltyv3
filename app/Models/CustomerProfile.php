@@ -50,4 +50,10 @@ class CustomerProfile extends Model
         // Links customer_profile.registered_by_admin_user_id to users.id
         return $this->belongsTo(User::class, 'registered_by_admin_user_id');
     }
+
+    public function pointsLedger()
+{
+    // Points are linked by user_id
+    return $this->hasMany(PointsLedger::class, 'user_id', 'user_id');
+}
 }
