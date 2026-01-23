@@ -27,7 +27,12 @@
                     <td class="p-2 border">{{ $customer->user->gender }}</td>
                     <td class="p-2 border">{{ $customer->user->birth_date }}</td>
                     <td class="p-2 border">{{ $customer->user->created_at }}</td>
-                    <td class="p-2 border"></td>
+                    <td class="p-2 border font-bold text-center">
+    {{-- Default to 0 if no points exist --}}
+    <span class="{{ ($customer->total_points ?? 0) >= 0 ? 'text-green-600' : 'text-red-600' }}">
+        {{ number_format($customer->total_points ?? 0, 2) }}
+    </span>
+</td>
                     <td class="p-2 border">
                         <a href="{{ route('customer.show', $customer) }}" class="text-blue-600 hover:underline">View/Edit</a>
                         |
