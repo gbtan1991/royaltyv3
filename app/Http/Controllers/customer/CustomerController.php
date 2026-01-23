@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\customer;
 
 use App\Models\User;
+use App\Models\Rewards;
+use App\Models\PointsLedger;
 use Illuminate\Http\Request;
 use App\Models\CustomerProfile;
 use Illuminate\Support\Facades\DB;
@@ -18,7 +20,9 @@ class CustomerController extends Controller
      */
     public function index()
     {
-        $customers = CustomerProfile::with('user')->get();
+        $customers = CustomerProfile::with('user')
+            ->withSum('pointsLedger as total_points', 'points_amount')
+            ->get();
 
         return view('customer.index', compact('customers'));
     }
@@ -43,17 +47,17 @@ class CustomerController extends Controller
             // 1. Create the Core User Identity
             $user = User::create([
                 'first_name' => $request->first_name,
-                'last_name'  => $request->last_name,
+                'last_name' => $request->last_name,
                 'birth_date' => $request->birth_date,
-                'gender'     => $request->gender,
-                'is_active'  => true, // Defaulting to active
+                'gender' => $request->gender,
+                'is_active' => true, // Defaulting to active
             ]);
 
             // 2. Create the Customer Profile linked to this User
             // We use the relationship defined in your User model
             $user->customerProfile()->create([
-                'member_id'                   => $request->member_id,
-                'loyalty_tier'                => $request->loyalty_tier,
+                'member_id' => $request->member_id,
+                'loyalty_tier' => $request->loyalty_tier,
                 'registered_by_admin_user_id' => auth()->id(), // Captures the current Admin
                 'last_activity_at'            => now(),
             ]);
@@ -78,12 +82,22 @@ class CustomerController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(CustomerProfile $customer)
+    // app/Http/Controllers/CustomerController.php
+
+    public function show($id)
     {
-        $customer->load('user');
+        // 1. Fetch the customer with their user data
+        // Note: Use $id if it's the user_id, or adjust to find by primary key
+        $customer = CustomerProfile::with('user')->findOrFail($id);
 
-        return view('customer.show', ['customer' => $customer]);
+        // 2. Calculate the total points from the ledger
+        $currentBalance = PointsLedger::where('user_id', $customer->user_id)->sum('points_amount');
 
+        // 3. Fetch active rewards for the progress bars
+        $rewards = Rewards::where('is_active', true)->get();
+
+        // 4. Send all variables to the view
+        return view('customer.show', compact('customer', 'currentBalance', 'rewards'));
     }
 
     /**
@@ -99,46 +113,46 @@ class CustomerController extends Controller
     /**
      * Update the specified resource in storage.
      */
-  public function update(UpdateCustomerRequest $request, CustomerProfile $customer)
-{
-    try {
-        DB::beginTransaction();
+    public function update(UpdateCustomerRequest $request, CustomerProfile $customer)
+    {
+        try {
+            DB::beginTransaction();
 
-        // Ensure the user relationship is loaded
-        $user = $customer->user;
+            // Ensure the user relationship is loaded
+            $user = $customer->user;
 
-        // 1. Update the User (Identity)
-        $user->update([
-            'first_name' => $request->first_name,
-            'last_name'  => $request->last_name,
-            'gender'     => strtolower($request->gender), // Force lowercase to match migration
-            'birth_date' => $request->birth_date,
-            'is_active'  => $request->is_active,
-        ]);
+            // 1. Update the User (Identity)
+            $user->update([
+                'first_name' => $request->first_name,
+                'last_name' => $request->last_name,
+                'gender' => strtolower($request->gender), // Force lowercase to match migration
+                'birth_date' => $request->birth_date,
+                'is_active' => $request->is_active,
+            ]);
 
-        // 2. Update the Profile (Loyalty)
-        $customer->update([
-            'loyalty_tier' => $request->loyalty_tier,
-            'member_id'    => $request->member_id, 
-        ]);
+            // 2. Update the Profile (Loyalty)
+            $customer->update([
+                'loyalty_tier' => $request->loyalty_tier,
+                'member_id' => $request->member_id,
+            ]);
 
-        DB::commit();
+            DB::commit();
 
-        return redirect()->route('customer.index')
-                         ->with('success', "Customer {$user->first_name} updated successfully!");
+            return redirect()->route('customer.index')
+                ->with('success', "Customer {$user->first_name} updated successfully!");
 
-    } catch (\Exception $e) {
-        DB::rollBack();
-        \Log::error("Update error: " . $e->getMessage());
-        return back()->with('error', 'Update failed: ' . $e->getMessage())->withInput();
+        } catch (\Exception $e) {
+            DB::rollBack();
+            \Log::error("Update error: " . $e->getMessage());
+            return back()->with('error', 'Update failed: ' . $e->getMessage())->withInput();
+        }
     }
-}   
     /**
      * Remove the specified resource from storage.
      */
     public function destroy(CustomerProfile $customer)
     {
-        try{
+        try {
             DB::beginTransaction();
 
             $user = $customer->user;
