@@ -10,9 +10,8 @@ class PointsLedgerController extends Controller
 {
  public function index()
 {
-    $ledgerEntries = PointsLedger::with(['customer.customerProfile', 'salesTransaction'])
-        // Change ->latest() to this:
-        ->orderBy('id', 'desc') 
+    $ledgerEntries = PointsLedger::with(['customer.user', 'salesTransaction'])
+        ->orderBy('ledger_date', 'desc') 
         ->paginate(15);
 
     return view('transaction.ledger.index', compact('ledgerEntries'));
