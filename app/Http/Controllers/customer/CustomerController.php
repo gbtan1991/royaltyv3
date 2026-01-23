@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers\customer;
 
-use App\Http\Requests\customer\UpdateCustomerRequest;
 use App\Models\User;
 use Illuminate\Http\Request;
 use App\Models\CustomerProfile;
@@ -10,6 +9,7 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\customer\StoreCustomerRequest;
+use App\Http\Requests\customer\UpdateCustomerRequest;
 
 class CustomerController extends Controller
 {
