@@ -89,4 +89,10 @@ class User extends Authenticatable
     {
         return "{$this->first_name} {$this->last_name}";
     }
+
+    protected $casts = [
+    'birth_date' => 'date',
+    'email_verified_at' => 'datetime',
+    'password' => 'hashed',
+];
 }
