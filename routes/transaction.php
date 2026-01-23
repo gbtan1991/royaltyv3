@@ -1,6 +1,7 @@
 <?php
 
 
+use App\Http\Controllers\transaction\RedemptionController;
 use App\Http\Controllers\transaction\PointsLedgerController;
 use App\Http\Controllers\transaction\SalesTransactionController;
 
@@ -23,7 +24,12 @@ Route::middleware('auth:admin')
 
         Route::delete('/{transaction}', [SalesTransactionController::class, 'destroy'])->name('destroy');
 
-
-
+       
     });
 
+// Keep these outside the group to avoid the "transaction." prefix
+Route::middleware('auth:admin')->group(function () {
+    Route::get('/redemption', [RedemptionController::class, 'index'])->name('redemption.index');
+    Route::get('/redemption/create', [RedemptionController::class, 'create'])->name('redemption.create');
+    Route::post('/redemption/claim', [RedemptionController::class, 'store'])->name('redemption.store');
+});
