@@ -9,7 +9,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Http\RedirectResponse;
 use App\Http\Requests\admin\StoreAdminRequest;
-use App\Http\Requests\UpdateAdminRequest;
+use App\Http\Requests\admin\UpdateAdminRequest;
 
 class AdminController extends Controller
 {
