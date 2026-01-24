@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Requests;
+namespace App\Http\Requests\admin;
 
 use Illuminate\Validation\Rule;
 use Illuminate\Foundation\Http\FormRequest;
@@ -12,6 +12,7 @@ class UpdateAdminRequest extends FormRequest
      */
     public function authorize(): bool
     {
+        
         return $this->user()?->role === 'Super Admin';
 
     }
