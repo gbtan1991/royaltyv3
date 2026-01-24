@@ -23,7 +23,7 @@
 
                     <div>
                         <label class="block text-sm font-medium">Birth Date *</label>
-                        <input type="date" name="birth_date" value="{{ old('birth_date', $admin->user->birth_date) }}" class="w-full border rounded p-2">
+                        <input type="date" name="birth_date" value="{{ old('birth_date', $admin->user->birth_date?->format('Y-m-d')) }}" class="w-full border rounded p-2">
                     </div>
 
                     <div>
@@ -90,5 +90,15 @@
                 <button type="submit" class="px-4 py-2 bg-green-600 text-white rounded hover:bg-green-700">Update Admin</button>
             </div>
         </form>
+
+        @if ($errors->any())
+    <div class="bg-red-100 text-red-700 p-4 rounded mb-4">
+        <ul>
+            @foreach ($errors->all() as $error)
+                <li>{{ $error }}</li>
+            @endforeach
+        </ul>
+    </div>
+@endif
     </div>
 </x-layouts.app-layout>
