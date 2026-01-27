@@ -90,6 +90,13 @@ class User extends Authenticatable
         return "{$this->first_name} {$this->last_name}";
     }
 
+
+    public function ledgerEntries(): HasMany
+    {
+        // This links users.id to points_ledger.user_id
+        return $this->hasMany(PointsLedger::class, 'user_id');
+    }
+
     protected $casts = [
     'birth_date' => 'date',
     'email_verified_at' => 'datetime',
