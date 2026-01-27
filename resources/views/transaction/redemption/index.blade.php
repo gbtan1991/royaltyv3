@@ -3,6 +3,7 @@
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="flex justify-between items-center mb-6">
                 <h2 class="text-2xl font-bold text-gray-800">Redemption History</h2>
+                <a href="{{ route('dashboard') }}">Back to Dashboard</a>
                 <a href="{{ route('redemption.create') }}" class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded shadow transition">
                     + New Redemption
                 </a>
