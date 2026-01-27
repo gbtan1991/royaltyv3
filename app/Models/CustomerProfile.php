@@ -56,4 +56,10 @@ class CustomerProfile extends Model
     // Points are linked by user_id
     return $this->hasMany(PointsLedger::class, 'user_id', 'user_id');
 }
+
+public function ledgerEntries()
+{
+    // This links the Profile to the Ledger via the user_id
+    return $this->hasMany(PointsLedger::class, 'user_id', 'user_id');
+}
 }
