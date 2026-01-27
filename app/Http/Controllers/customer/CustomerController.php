@@ -18,14 +18,15 @@ class CustomerController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
-    {
-        $customers = CustomerProfile::with('user')
-            ->withSum('pointsLedger as total_points', 'points_amount')
-            ->get();
+   public function index()
+{
+    $customers = CustomerProfile::with(['user']) // Load the user relationship
+        ->withSum('ledgerEntries as total_points', 'points_amount')
+        ->orderByDesc('total_points')
+        ->paginate(20);
 
-        return view('customer.index', compact('customers'));
-    }
+    return view('customer.index', compact('customers'));
+}
 
     /**
      * Show the form for creating a new resource.
