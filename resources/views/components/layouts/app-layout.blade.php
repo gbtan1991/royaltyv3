@@ -24,12 +24,15 @@
 
 </head>
 
-<body>
+<body x-data="{ sidebarToggle: false, darkMode: false }">
+    
+    
 
     <div class="flex h-screen overflow-hidden">
         @include('components.partials.sidebar')
 
         <div class="relative flex flex-col flex-1 overflow-x-hidden overflow-y-auto">
+            @include('components.partials.overlay')
             @include('components.partials.header')
 
             {{ $slot }}
