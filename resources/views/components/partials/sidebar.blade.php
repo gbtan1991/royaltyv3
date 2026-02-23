@@ -1,5 +1,5 @@
 <aside :class="sidebarToggle ? 'translate-x-0 lg:w-[90px]' : '-translate-x-full'"
-    class="fixed top-0 left-0 z-9999 flex h-screen w-[290px] flex-col overflow-y-hidden border-r border-gray-200 bg-white px-5 lg:static lg:translate-x-0">
+    class="fixed top-0 left-0 z-9999 flex h-screen w-[290px] flex-col overflow-y-hidden border-r border-gray-200 bg-white px-5 lg:static lg:translate-x-0 dark:border-gray-800 dark:bg-black">
 
 
     <!--- SIDEBAR HEADER --->
@@ -7,7 +7,10 @@
 
         <a href="{{ route('dashboard') }}">
             <span class="logo" :class="sidebarToggle ? 'hidden' : ''">
-                <img src="{{ asset('assets/images/royalty-logo-light.png') }}" class="w-38" alt="logo">
+                <img src="{{ asset('assets/images/royalty-logo-light.png') }}" class="w-38 dark:hidden" alt="logo"
+                    class="dark:hidden">
+                <img src="{{ asset('assets/images/royalty-logo-dark.png') }}" class="w-38 hidden dark:block"
+                    alt="logo" ">
             </span>
 
             <img class="logo-icon w-8" :class="sidebarToggle ? 'lg:block' : 'hidden'"
