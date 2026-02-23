@@ -6,9 +6,13 @@
 @source '../**/*.blade.php';
 @source '../**/*.js';
 
+
+@custom-variant dark (&:is(.dark *));
+
 @theme {
   --font-*: initial;
   --font-outfit: Outfit, sans-serif;
+  
 
   --breakpoint-*: initial;
   --breakpoint-2xsm: 375px;
