@@ -24,11 +24,15 @@
 
 </head>
 
-<body x-data="{ sidebarToggle: false, darkMode: false }">
+<body 
+    x-data="{ sidebarToggle: false, darkMode: true }"
+    :class="{ 'dark': darkMode === true }"
+    class="bg-white text-gray-900 dark:bg-gray-900 dark:text-white transition-colors duration-300"
+>
     
     
 
-    <div class="flex h-screen overflow-hidden">
+    <div class="flex h-screen overflow-hidden dark:bg-black">
         @include('components.partials.sidebar')
 
         <div class="relative flex flex-col flex-1 overflow-x-hidden overflow-y-auto">
