@@ -1,6 +1,6 @@
 <nav>
     <div>
-        <h3 class="mb-4 text-xs leading-4 text-gray-400 uppercase">
+        <h3 class="mb-4 text-xs leading-4 text-gray-400 uppercase ">
             <span
             class="menu-group-title"
             :class="sidebarToggle ? 'lg:hidden' : ''"
@@ -26,7 +26,7 @@
         </h3>
         
         
-        <ul class="mb-6 flex flex-col gap-4">
+        <ul class="mb-6 flex flex-col gap-4 da dark:text-white">
             
             <li>
             <a href="{{ route('dashboard') }}">
