@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Str;
 
 class Customer extends Model
 {
@@ -24,6 +25,24 @@ class Customer extends Model
     protected $casts = [
         'is_active' => 'boolean',
     ];
+
+    protected static function booted(): void
+    {
+        static::creating(function (Customer $customer) {
+            if (empty($customer->member_number)) {
+                $customer->member_number = static::generateMemberNumber();
+            }
+        });
+    }
+
+    public static function generateMemberNumber(): string
+    {
+        do {
+            $number = 'MBR-' . strtoupper(Str::random(6));
+        } while (static::where('member_number', $number)->exists());
+
+        return $number;
+    }
 
     // --- Relationships ---
 

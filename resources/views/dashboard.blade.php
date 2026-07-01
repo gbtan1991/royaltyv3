@@ -1,17 +1,7 @@
-<x-app-layout>
+<x-layouts.app>
     <x-slot name="header">
-        <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            {{ __('Dashboard') }}
-        </h2>
+        <h1 class="text-xl font-semibold text-gray-800">Dashboard</h1>
     </x-slot>
 
-    <div class="py-12">
-        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-            <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
-                <div class="p-6 text-gray-900">
-                    {{ __("You're logged in!") }}
-                </div>
-            </div>
-        </div>
-    </div>
-</x-app-layout>
+    <div class="text-gray-500 text-sm">Dashboard stats coming in Phase 5.</div>
+</x-layouts.app>
