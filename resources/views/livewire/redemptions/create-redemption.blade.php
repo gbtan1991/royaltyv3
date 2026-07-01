@@ -150,9 +150,10 @@
                     </div>
                 </div>
                 <div class="flex items-center gap-3">
-                    <button wire:click="save"
+                    <button wire:click="save" wire:loading.attr="disabled" wire:loading.class="opacity-60 cursor-not-allowed"
                             class="px-5 py-2 bg-indigo-600 text-white text-sm font-medium rounded-lg hover:bg-indigo-700 transition">
-                        Confirm Redemption
+                        <span wire:loading.remove wire:target="save">Confirm Redemption</span>
+                        <span wire:loading wire:target="save">Processing…</span>
                     </button>
                     <a href="{{ route('redemptions.index') }}" wire:navigate
                        class="px-5 py-2 text-sm font-medium text-gray-600 hover:text-gray-800 transition">Cancel</a>

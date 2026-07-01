@@ -1,6 +1,7 @@
 <?php
 
 use App\Livewire\Customers\CustomerList;
+use App\Livewire\Settings\SettingsPage;
 use App\Livewire\Dashboard;
 use App\Livewire\Customers\ManageCustomer;
 use App\Livewire\Redemptions\CreateRedemption;
@@ -36,8 +37,8 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/redemptions', RedemptionList::class)->name('redemptions.index');
     Route::get('/redemptions/create', CreateRedemption::class)->name('redemptions.create');
 
-    // Placeholder (Phase 6)
-    Route::get('/settings', fn () => 'Coming in Phase 6')->name('settings.index');
+    // Settings
+    Route::get('/settings', SettingsPage::class)->name('settings.index');
 
 });
 

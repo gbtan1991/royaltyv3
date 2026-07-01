@@ -74,9 +74,10 @@
             </div>
 
             <div class="flex items-center gap-3 pt-2 border-t border-gray-100">
-                <button type="submit"
+                <button type="submit" wire:loading.attr="disabled" wire:loading.class="opacity-60 cursor-not-allowed"
                         class="px-5 py-2 bg-indigo-600 text-white text-sm font-medium rounded-lg hover:bg-indigo-700 transition">
-                    {{ $customer ? 'Save Changes' : 'Add Customer' }}
+                    <span wire:loading.remove wire:target="save">{{ $customer ? 'Save Changes' : 'Add Customer' }}</span>
+                    <span wire:loading wire:target="save">Saving…</span>
                 </button>
                 <a href="{{ route('customers.index') }}" wire:navigate
                    class="px-5 py-2 text-sm font-medium text-gray-600 hover:text-gray-800 transition">Cancel</a>
