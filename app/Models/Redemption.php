@@ -4,28 +4,31 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-// MISTAKE FIX: You must import this to use : BelongsTo
-use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class Redemption extends Model
 {
     use HasFactory;
 
     protected $fillable = [
-        'customer_user_id', // Make sure this matches your MIGRATION exactly
+        'customer_id',
         'reward_id',
+        'redeemed_by',
         'points_spent',
         'status',
     ];
 
-    public function user(): BelongsTo
+    public function customer()
     {
-        // Specifying 'customer_user_id' here is correct since it's non-standard
-        return $this->belongsTo(User::class, 'customer_user_id');
+        return $this->belongsTo(Customer::class);
     }
 
-    public function reward(): BelongsTo
+    public function reward()
     {
-        return $this->belongsTo(Rewards::class, 'reward_id');
+        return $this->belongsTo(Reward::class);
+    }
+
+    public function redeemedBy()
+    {
+        return $this->belongsTo(User::class, 'redeemed_by');
     }
 }
