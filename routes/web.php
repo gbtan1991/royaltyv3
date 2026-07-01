@@ -1,6 +1,7 @@
 <?php
 
 use App\Livewire\Customers\CustomerList;
+use App\Livewire\Dashboard;
 use App\Livewire\Customers\ManageCustomer;
 use App\Livewire\Redemptions\CreateRedemption;
 use App\Livewire\Redemptions\RedemptionList;
@@ -14,7 +15,7 @@ Route::get('/', fn () => redirect()->route('dashboard'));
 
 Route::middleware(['auth'])->group(function () {
 
-    Route::view('dashboard', 'dashboard')->name('dashboard');
+    Route::get('dashboard', Dashboard::class)->name('dashboard');
     Route::view('profile', 'profile')->name('profile');
 
     // Customers
