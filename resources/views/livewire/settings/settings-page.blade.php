@@ -1,3 +1,4 @@
+<div>
     <x-slot name="header">
         <h1 class="text-xl font-semibold text-gray-800">Settings</h1>
     </x-slot>
@@ -40,3 +41,4 @@
         </div>
 
     </div>
+</div>

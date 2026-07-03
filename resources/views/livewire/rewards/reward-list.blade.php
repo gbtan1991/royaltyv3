@@ -1,3 +1,4 @@
+<div>
     <x-slot name="header">
         <div class="flex items-center justify-between">
             <h1 class="text-xl font-semibold text-gray-800">Rewards</h1>
@@ -127,3 +128,4 @@
             </div>
         </div>
     @endif
+</div>
