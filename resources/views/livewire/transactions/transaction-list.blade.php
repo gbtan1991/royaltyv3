@@ -1,4 +1,3 @@
-<x-layouts.app>
     <x-slot name="header">
         <div class="flex items-center justify-between">
             <h1 class="text-xl font-semibold text-gray-800">Transactions</h1>
@@ -139,4 +138,3 @@
             </div>
         </div>
     @endif
-</x-layouts.app>

@@ -1,4 +1,3 @@
-<x-layouts.app>
     <x-slot name="header">
         <div class="flex items-center justify-between">
             <h1 class="text-xl font-semibold text-gray-800">Redemptions</h1>
@@ -91,4 +90,3 @@
             <div class="px-6 py-3 border-t border-gray-200">{{ $redemptions->links() }}</div>
         @endif
     </div>
-</x-layouts.app>

@@ -1,4 +1,3 @@
-<x-layouts.app>
     <x-slot name="header">
         <div class="flex items-center gap-3">
             <a href="{{ route('customers.index') }}" wire:navigate class="text-gray-400 hover:text-gray-600 transition">
@@ -85,4 +84,3 @@
 
         </form>
     </div>
-</x-layouts.app>
